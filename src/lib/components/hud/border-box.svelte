@@ -1,0 +1,43 @@
+<script lang="ts">
+  const props = $props();
+  import { isPortrait } from "$lib/stores/store";
+</script>
+
+<div
+  class={[
+    "fixed left-1/2 -translate-x-1/2 max-w-[40rem] w-[calc(100vw-1rem)]",
+    $isPortrait ? "bottom-3" : "bottom-12",
+  ]}
+>
+  <!-- <div
+    class={[
+      "backdrop-blur-xs absolute top-[0.2rem] w-full -z-10",
+      $pages.length > 1 ? "h-[calc(100%-1rem)]" : "h-full",
+    ]}
+  ></div> -->
+  <div class="flex">
+    <div
+      class="rounded-tl-md border-t-3 border-l-3 border-white box-content h-[1em] bg-black/75 w-[2rem]"
+    ></div>
+    <div class="bg-black/75 -mt-2.5 px-0.5">
+      <div class="flex items-center">
+        {@render props.upper()}
+      </div>
+    </div>
+    <div
+      class="rounded-tr-md border-t-3 border-r-3 border-white box-content h-[1em] bg-black/75 flex-grow"
+    ></div>
+  </div>
+  {@render props.content()}
+  <div class="flex">
+    <div
+      class="rounded-bl-md border-b-3 border-l-3 border-white box-content h-[1em] bg-black/75 flex-grow"
+    ></div>
+    <div class="bg-black/75 pt-1.25 px-0.5 flex items-center">
+      {@render props.lower()}
+    </div>
+    <div
+      class="rounded-br-md border-b-3 border-r-3 border-white box-content h-[1em] bg-black/75 w-[2rem]"
+    ></div>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   import { onDestroy, onMount } from "svelte";
   import Scroller from "$lib/components/scroller/scroller.svelte";
   import { activePage } from "$lib/stores/store";
-  import Line from "$lib/components/description-box/line.svelte";
+  import Line from "./line.svelte";
   import { fly } from "svelte/transition";
 
   const props = $props();

@@ -1,6 +1,6 @@
 <script lang="ts">
   import GsViewer from "$lib/components/gs-viewer/gs-viewer.svelte";
-  import DescriptionBox from "$lib/components/description-box/description-box.svelte";
+  import DescriptionBox from "$lib/components/hud/hud.svelte";
   import Media from "$lib/components/media.svelte";
   import Panorama from "$lib/components/panorama/panorama.svelte";
   import Hourglass from "$lib/components/hourglass.svelte";

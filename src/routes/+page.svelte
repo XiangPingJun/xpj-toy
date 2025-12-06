@@ -43,7 +43,7 @@
 </svelte:head>
 
 <div class="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-  <Scroller class="max-w-[40rem] w-[100vw]" height="calc(100dvh - 2rem)">
+  <Scroller class="max-w-160 w-screen" height="calc(100dvh - 2rem)">
     <div class="flex justify-center items-center gap-1 text-2xl mb-2">
       <i class="las la-list"></i>
       總覽
@@ -51,8 +51,8 @@
     {#each data as { path, caption }, i}
       <div
         class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 hover:text-gray-300"
-        onclick={() => goto(`/v/${path}/v`)}
-        onkeydown={() => {}}
+        on:click={() => goto(`/v/${path}/v`)}
+        on:keydown={() => {}}
         role="button"
         tabindex={i}
         transition:blur={{ amount: "1rem" }}
@@ -63,7 +63,7 @@
           alt=""
         />
         <div
-          class="font-[uoqmunthenkhung] absolute bottom-[4px] left-[4px] text-sm w-[calc(100%-8px)] caption"
+          class="font-[uoqmunthenkhung] absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
           style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
         >
           <div

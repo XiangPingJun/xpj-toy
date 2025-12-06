@@ -101,7 +101,7 @@
   <LookAt
     text="打開蓋子"
     setSplatPov="[0.0215,0.2525,0.1564,0.0076,-0.001,-0.0035]"
-    setImgUrl="donald-pop-open.png"
+    setImgUrl="donald-open.png"
   />，裡頭只剩一個乾淨的空洞。咖哩味的爆米花早已散去，留下塑膠的清冷與指尖餘溫。它輕聲提醒我：熱鬧退場後，平凡也是一種保存，像一段未曾雕琢的日子，被妥帖收起。
 {/snippet}
 

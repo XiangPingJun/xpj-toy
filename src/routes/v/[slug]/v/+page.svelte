@@ -86,7 +86,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>{title}</title>
+	<title>{`${title}(^ω^)祥平的玩具櫃`}</title>
 	<meta name="description" content={description} />
 
 	<!-- Open Graph Protocol -->
@@ -98,7 +98,7 @@
 
 	<!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={title} />
+	<meta name="twitter:title" content={`${title}(^ω^)祥平的玩具櫃`} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content="og-image.jpg" />
 </svelte:head>

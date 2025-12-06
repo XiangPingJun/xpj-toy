@@ -12,7 +12,14 @@
 
 {#snippet overviewButton()}
   [<button
-    class="text-blue-400 hover:text-blue-300 cursor-pointer mx-1 flex items-center gap-0.5"
+    class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
+    onclick={() => goto("/")}
+  >
+    <i class="las la-vr-cardboard"></i>
+    調整視角
+  </button>
+  ] [<button
+    class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
     onclick={() => goto("/")}
   >
     <i class="las la-list"></i>
@@ -36,16 +43,15 @@
     {@render overviewButton()}
   {:else if $activePageIndex > 0}
     [<button
-      class="text-blue-400 hover:text-blue-300 cursor-pointer mx-1 flex items-center"
+      class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
       onclick={() => $activePageIndex--}
     >
       <i class="las la-arrow-left"></i>
       上頁
     </button>]
   {/if}
-  {#if $activePageIndex < $pages.length - 1}
-    [<button
-      class="text-blue-400 hover:text-blue-300 cursor-pointer mx-1 flex items-center"
+  {#if $activePageIndex < $pages.length - 1}[<button
+      class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
       onclick={() => $activePageIndex++}
     >
       下頁

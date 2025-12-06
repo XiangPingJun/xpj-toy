@@ -48,7 +48,7 @@
       ></div>
       <div class="bg-black/50 pt-1.25 px-0.5 font-bold flex items-center">
         [<button
-          class="text-blue-400 hover:text-blue-300 cursor-pointer flex gap-1 items-center"
+          class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
           onclick={() => {
             $imgUrl = "";
             $videoUrl = "";

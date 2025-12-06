@@ -53,12 +53,13 @@
     cameraControls.rotateTo(rad(200), rad(0), true);
     zoom = 0.15;
     cameraControls.zoomTo(zoom, true);
+    cameraControls.azimuthRotateSpeed = 0.2;
 
     startAnimation();
   }
 
   function onWheel(event: WheelEvent) {
-    if (!cameraControls) return;
+    if (!cameraControls || !localStorage.debug) return;
 
     event.preventDefault();
     zoom += event.deltaY * -0.0002;

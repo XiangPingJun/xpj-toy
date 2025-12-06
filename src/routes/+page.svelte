@@ -12,6 +12,8 @@
 
   const data = $state<{ path: string; caption: string }[]>([]);
 
+  let leavingByIndex = $state<number | null>(null);
+
   onMount(async () => {
     const allData = Object.entries(articles).map(([path, article]) => ({
       path,
@@ -49,30 +51,35 @@
       總覽
     </div>
     {#each data as { path, caption }, i}
-      <div
-        class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 hover:text-gray-300"
-        on:click={() => goto(`/v/${path}/v`)}
-        on:keydown={() => {}}
-        role="button"
-        tabindex={i}
-        transition:blur={{ amount: "1rem" }}
-      >
-        <img
-          src={`/v/${path}/og-image.jpg`}
-          class="max-w-[18rem] w-[calc(50vw-2rem)] m-1 inline rounded-md"
-          alt=""
-        />
+      {#if leavingByIndex === null || leavingByIndex === i}
         <div
-          class="font-[uoqmunthenkhung] absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
-          style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
+          class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 hover:text-gray-300"
+          onclick={() => {
+            leavingByIndex = i;
+            // goto(`/v/${path}/v`);
+          }}
+          onkeydown={() => {}}
+          role="button"
+          tabindex={i}
+          transition:blur={{ amount: "1rem" }}
         >
+          <img
+            src={`/v/${path}/og-image.jpg`}
+            class="max-w-[18rem] w-[calc(50vw-2rem)] m-1 inline rounded-md"
+            alt=""
+          />
           <div
-            class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
+            class="font-[uoqmunthenkhung] absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
+            style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
           >
-            ❝{caption}❞
+            <div
+              class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
+            >
+              ❝{caption}❞
+            </div>
           </div>
         </div>
-      </div>
+      {/if}
     {/each}
   </Scroller>
 </div>

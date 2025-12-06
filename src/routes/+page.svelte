@@ -56,7 +56,7 @@
           class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 hover:text-gray-300"
           onclick={() => {
             leavingByIndex = i;
-            // goto(`/v/${path}/v`);
+            goto(`/v/${path}/v`);
           }}
           onkeydown={() => {}}
           role="button"

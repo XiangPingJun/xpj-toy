@@ -4,6 +4,7 @@
   import { blur } from "svelte/transition";
   import articles from "$lib/articles";
   import { onMount } from "svelte";
+  import { isPortrait } from "$lib/stores/store";
 
   export const title = "(^ω^)祥平的玩具櫃";
   const description =
@@ -45,42 +46,47 @@
 </svelte:head>
 
 <div class="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-  <Scroller class="max-w-160 w-screen" height="calc(100dvh - 2rem)">
+  <Scroller
+    class={[isPortrait ? "w-[80vw]" : "w-screen"]}
+    height="calc(100dvh - 2rem)"
+  >
     <div class="flex justify-center items-center gap-1 text-2xl mb-2">
       <i class="las la-list"></i>
       總覽
     </div>
-    {#each data as { path, caption }, i}
-      {#if leavingByIndex === null || leavingByIndex === i}
-        <div
-          class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 hover:text-gray-300"
-          onclick={() => {
-            leavingByIndex = i;
-            goto(`/v/${path}/v`);
-          }}
-          onkeydown={() => {}}
-          role="button"
-          tabindex={i}
-          transition:blur={{ amount: "1rem" }}
-        >
-          <img
-            src={`/v/${path}/og-image.jpg`}
-            class="max-w-[18rem] w-[calc(50vw-2rem)] m-1 inline rounded-md"
-            alt=""
-          />
+    <div class="flex justify-center items-center flex-wrap">
+      {#each data as { path, caption }, i}
+        {#if leavingByIndex === null || leavingByIndex === i}
           <div
-            class="font-[uoqmunthenkhung] absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
-            style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
+            class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 hover:text-gray-300"
+            onclick={() => {
+              leavingByIndex = i;
+              goto(`/v/${path}/v`);
+            }}
+            onkeydown={() => {}}
+            role="button"
+            tabindex={i}
+            transition:blur={{ amount: "1rem" }}
           >
+            <img
+              src={`/v/${path}/og-image.jpg`}
+              class="max-w-[18rem] w-[calc(50vw-2rem)] m-1 inline rounded-md"
+              alt=""
+            />
             <div
-              class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
+              class="font-[uoqmunthenkhung] absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
+              style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
             >
-              ❝{caption}❞
+              <div
+                class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
+              >
+                ❝{caption}❞
+              </div>
             </div>
           </div>
-        </div>
-      {/if}
-    {/each}
+        {/if}
+      {/each}
+    </div>
   </Scroller>
 </div>
 

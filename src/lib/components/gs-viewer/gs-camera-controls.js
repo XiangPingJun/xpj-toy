@@ -732,13 +732,13 @@ class CameraControls extends Script {
       this._setMode('orbit');
     } else if (button[2] === 1 || this._state.axis.length() > 0) {
       // right mouse button or any movement
-      this._setMode('fly');
+      // this._setMode('fly');
     }
 
     const orbit = +(this._mode === 'orbit');
     const fly = +(this._mode === 'fly');
     const double = +(this._state.touches > 1);
-    const desktopPan = +(this._state.shift || this._state.mouse[1]);
+    const desktopPan = +(this._state.shift || this._state.mouse[2]);
     const mobileJoystick = +(this._flyMobileInput.layout.endsWith('joystick'));
 
     // multipliers

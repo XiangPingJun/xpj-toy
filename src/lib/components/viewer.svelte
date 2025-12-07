@@ -13,7 +13,7 @@
     class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl"
   >
     <div class="flex items-center gap-1">
-      <img src="/loading.svg" alt="" class="w-[6rem] h-[6rem]" />
+      <img src="/loading.svg" alt="" class="w-[4rem] h-[4rem]" />
     </div>
   </div>
 {:else}

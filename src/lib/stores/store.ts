@@ -40,3 +40,5 @@ autoRotate.subscribe((val) => {
 
 export const isMobile = writable(false);
 export const isPortrait = writable(false);
+
+export const mode = writable<"Description" | "Inspect">("Description");

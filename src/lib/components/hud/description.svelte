@@ -3,7 +3,7 @@
   import Scroller from "$lib/components/scroller/scroller.svelte";
   import { activePage, descriptionInitialized } from "$lib/stores/store";
   import Line from "./line.svelte";
-  import { fly } from "svelte/transition";
+  import { slide } from "svelte/transition";
 
   const props = $props();
   const lineRefs: HTMLDivElement[] = [];
@@ -20,7 +20,7 @@
     const allLines = JSON.parse(JSON.stringify($activePage.lines));
     while (allLines.length) {
       lines.push(allLines.shift());
-      await new Promise((r) => setTimeout(r, 50));
+      await new Promise((r) => setTimeout(r, 100));
     }
     intersectionObserver = new IntersectionObserver(
       (entries) => {
@@ -43,13 +43,14 @@
   });
 
   onDestroy(() => {
+    $descriptionInitialized = false;
     intersectionObserver?.disconnect();
   });
 </script>
 
 <Scroller {...props}>
   {#each lines as line, i}
-    <div bind:this={lineRefs[i]} data-index={i} transition:fly={{ y: 24 }}>
+    <div bind:this={lineRefs[i]} data-index={i} transition:slide>
       <Line
         {...line}
         text={line.text}
@@ -59,7 +60,4 @@
       />
     </div>
   {/each}
-  {#if !lines.length}
-    <img src="/loading.svg" alt="" class="w-[2rem] h-[2rem] inline" />
-  {/if}
 </Scroller>

@@ -1,14 +1,26 @@
 <script lang="ts">
   import DescriptionBox from "./description-box.svelte";
-
-  let mode: "Description" | "Inspect" = "Description";
+  import InspectBox from "./inspect-box.svelte";
+  import { mode } from "$lib/stores/store";
 </script>
 
-{#if mode === "Description"}
+<div
+  class={[
+    $mode === "Description"
+      ? "opacity-100 pointer-events-auto"
+      : "opacity-0 pointer-events-none",
+    "transition-all",
+  ]}
+>
   <DescriptionBox />
-{:else if mode === "Inspect"}
-  <div class="inspect-box">
-    <!-- Inspect mode content goes here -->
-    <p>Inspect mode is under construction.</p>
-  </div>
-{/if}
+</div>
+<div
+  class={[
+    $mode === "Inspect"
+      ? "opacity-100 pointer-events-auto"
+      : "opacity-0 pointer-events-none",
+    "transition-all",
+  ]}
+>
+  <InspectBox />
+</div>

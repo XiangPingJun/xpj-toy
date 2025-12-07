@@ -1,12 +1,19 @@
 <script lang="ts">
   import { imgUrl, videoUrl, resources } from "$lib/stores/store";
   import { fly } from "svelte/transition";
-  import { isPortrait } from "$lib/stores/store";
+  import { isPortrait, mode } from "$lib/stores/store";
 </script>
 
 <!-- transition:fly={{ y: "2rem" }} -->
 {#if ($imgUrl && $resources[$imgUrl]) || ($videoUrl && $resources[$videoUrl])}
-  <div class="fixed left-1/2 -translate-x-1/2 top-3">
+  <div
+    class={[
+      $mode === "Description"
+        ? "opacity-100 pointer-events-auto"
+        : "opacity-0 pointer-events-none",
+      "fixed left-1/2 -translate-x-1/2 top-3 transition-all",
+    ]}
+  >
     <div
       class="backdrop-blur-xs absolute top-[0.2rem] w-full h-[calc(100%-1rem)] -z-10"
     ></div>

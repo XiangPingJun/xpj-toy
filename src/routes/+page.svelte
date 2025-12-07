@@ -47,7 +47,7 @@
 
 <div class="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
   <Scroller
-    class={[isPortrait ? "w-[80vw]" : "w-screen"]}
+    class={[isPortrait ? "w-screen" : "w-[80vw]"]}
     height="calc(100dvh - 2rem)"
   >
     <div class="flex justify-center items-center gap-1 text-2xl mb-2">

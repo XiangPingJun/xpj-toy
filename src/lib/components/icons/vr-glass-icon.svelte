@@ -2,7 +2,10 @@
   const props = $props();
 </script>
 
-<svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+<svg
+  class={["mr-0.5", props.class]}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 48 48"
   ><g fill="none"
     ><path
       stroke="#dcdcdc"

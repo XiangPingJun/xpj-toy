@@ -69,7 +69,7 @@
     // Load assets
     const assets = [
       new pc.Asset("toy", "gsplat", {
-        url: $resources[$activePage.url] ?? undefined,
+        url: $activePage.url,
       }),
     ];
 
@@ -87,15 +87,13 @@
     app.root.addChild(camera);
 
     // Create splat entity
-    const splat = new pc.Entity("Toy");
+    const splat = new pc.Entity("toy");
     splat.setPosition(0, 0, 0);
     splat.setEulerAngles(0, 0, 180);
     splat.addComponent("gsplat", { asset: assets[0] });
     app.root.addChild(splat);
 
     saveInterval = setInterval(saveCameraState, 1000);
-
-    setCameraState(JSON.parse($activePage.firstPov));
 
     return () => {
       window.removeEventListener("resize", handleResize);

@@ -1,12 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import Description from "./description.svelte";
-  import {
-    pages,
-    activePage,
-    activePageIndex,
-    isPortrait,
-  } from "$lib/stores/store";
+  import { pages, activePage, activePageIndex } from "$lib/stores/store";
   import BorderBox from "./border-box.svelte";
 </script>
 

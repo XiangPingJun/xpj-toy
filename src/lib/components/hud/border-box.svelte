@@ -9,12 +9,6 @@
     $isPortrait ? "bottom-3" : "bottom-12",
   ]}
 >
-  <!-- <div
-    class={[
-      "backdrop-blur-xs absolute top-[0.2rem] w-full -z-10",
-      $pages.length > 1 ? "h-[calc(100%-1rem)]" : "h-full",
-    ]}
-  ></div> -->
   <div class="flex">
     <div
       class="rounded-tl-md border-t-3 border-l-3 border-white box-content h-[1em] bg-black/75 w-[2rem]"

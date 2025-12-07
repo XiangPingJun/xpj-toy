@@ -8,7 +8,6 @@ export const pages = writable([] as {
   title?: string,
   type: 'splat' | 'pan',
   url: string,
-  firstPov: string,
   lines: {
     text: string,
     pov: string,
@@ -17,16 +16,13 @@ export const pages = writable([] as {
   }[],
 }[]);
 
+export const descriptionInitialized = writable(false);
+
 export const activePageIndex = writable(0);
-export const activePage = derived([pages, activePageIndex], ([$pages, $activePageIndex]) => {
-  const p = $pages[$activePageIndex];
-  if (p.type === 'splat') {
-    splatPov.set(p.firstPov);
-  } else if (p.type === 'pan') {
-    panPov.set(p.firstPov);
-  }
-  return p;
-});
+export const activePage = derived(
+  [pages, activePageIndex],
+  ([$pages, $activePageIndex]) => $pages[$activePageIndex],
+);
 
 export const imgUrl = writable('');
 export const videoUrl = writable('');

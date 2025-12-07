@@ -9,7 +9,6 @@
     videoUrl,
     resources,
   } from "$lib/stores/store";
-  import Hourglass from "$lib/components/hourglass.svelte";
 
   let props = $props();
   let loading = $state(false);
@@ -61,7 +60,7 @@
 >
   {#if props.isActive}
     {#if loading}
-      <Hourglass />
+      <img src="/loading.svg" alt="" class="w-[1rem] h-[1rem] inline" />
     {:else}
       <i class="las la-paper-plane"></i>
     {/if}

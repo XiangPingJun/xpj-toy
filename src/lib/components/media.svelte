@@ -3,14 +3,6 @@
   import { fly } from "svelte/transition";
   import { isPortrait, mode } from "$lib/stores/store";
   import CloseIcon from "$lib/components/icons/close-icon.svelte";
-
-  let videoElement: HTMLVideoElement;
-
-  $effect(() => {
-    if ($resources[$videoUrl] && videoElement) {
-      videoElement?.play();
-    }
-  });
 </script>
 
 <!-- transition:fly={{ y: "2rem" }} -->
@@ -42,7 +34,6 @@
         />
       {:else if $resources[$videoUrl]}
         <video
-          bind:this={videoElement}
           src={$videoUrl}
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover",
@@ -72,7 +63,7 @@
             $imgUrl = "";
             $videoUrl = "";
           }}
-          tabindex="-1"><CloseIcon />關閉</button
+          tabindex="-1"><CloseIcon />1關閉</button
         >]
       </div>
       <div

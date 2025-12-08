@@ -3,9 +3,13 @@
   import { fly } from "svelte/transition";
   import { isPortrait, mode } from "$lib/stores/store";
   import CloseIcon from "$lib/components/icons/close-icon.svelte";
+  import { onMount } from "svelte";
+  let mounted = $state(false);
+
+  onMount(() => (mounted = true));
 </script>
 
-{#if ($imgUrl && $resources[$imgUrl]) || ($videoUrl && $resources[$videoUrl])}
+{#if mounted && (($imgUrl && $resources[$imgUrl]) || $videoUrl)}
   <div
     class={[
       $mode === "Description"
@@ -32,9 +36,9 @@
           ]}
           alt=""
         />
-      {:else if $resources[$videoUrl]}
+      {:else if $videoUrl}
         <video
-          src="ants.mp4"
+          src={$videoUrl}
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait
@@ -61,7 +65,7 @@
             $imgUrl = "";
             $videoUrl = "";
           }}
-          tabindex="-1"><CloseIcon />4關閉</button
+          tabindex="-1"><CloseIcon />關閉</button
         >]
       </div>
       <div

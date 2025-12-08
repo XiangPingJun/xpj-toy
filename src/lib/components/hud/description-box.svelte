@@ -9,6 +9,8 @@
     mode,
   } from "$lib/stores/store";
   import BorderBox from "./border-box.svelte";
+  import VrGlassIcon from "../icons/vr-glass-icon.svelte";
+  import ListIcon from "../icons/list-icon.svelte";
 </script>
 
 {#snippet overviewButton()}
@@ -16,15 +18,13 @@
     class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
     onclick={() => ($mode = "Inspect")}
   >
-    <i class="las la-vr-cardboard"></i>
-    調整視角
+    <VrGlassIcon />調整視角
   </button>
   ] [<button
     class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
     onclick={() => goto("/")}
   >
-    <i class="las la-list"></i>
-    總覽
+    <ListIcon />總覽
   </button>]
 {/snippet}
 

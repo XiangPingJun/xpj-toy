@@ -2,7 +2,10 @@
   const props = $props();
 </script>
 
-<svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 18"
+<svg
+  class={["w-[1em] h-[1em] inline ", props.class]}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 16 18"
   ><path
     fill="#dcdcdc"
     fill-rule="evenodd"

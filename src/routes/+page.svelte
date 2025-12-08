@@ -5,6 +5,7 @@
   import articles from "$lib/articles";
   import { onMount } from "svelte";
   import { isPortrait } from "$lib/stores/store";
+  import ListIcon from "../icons/list-icon.svelte";
 
   export const title = "(^ω^)祥平的玩具櫃";
   const description =
@@ -51,8 +52,7 @@
     height="calc(100dvh - 2rem)"
   >
     <div class="flex justify-center items-center gap-1 text-2xl mb-2">
-      <i class="las la-list"></i>
-      總覽
+      <ListIcon />總覽
     </div>
     <div class="flex justify-center items-center flex-wrap">
       {#each data as { path, caption }, i}

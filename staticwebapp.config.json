@@ -12,12 +12,6 @@
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
       }
-    },
-    {
-      "route": "*.mp4",
-      "headers": {
-        "content-type": "video/mp4"
-      }
     }
   ],
   "mimeTypes": {
@@ -28,6 +22,7 @@
     ".png": "image/png",
     ".jpg": "image/jpeg",
     ".svg": "image/svg+xml",
-    ".spz": "application/octet-stream"
+    ".spz": "application/octet-stream",
+    ".mp4": "video/mp4"
   }
 }

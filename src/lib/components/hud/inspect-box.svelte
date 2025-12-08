@@ -14,10 +14,13 @@
 
 {#snippet content()}
   <div
-    class="bg-black/75 border-white box-content border-l-3 border-r-3 whitespace-pre-line px-4"
+    class="bg-black/75 border-white box-content border-l-3 border-r-3 whitespace-pre-line px-4 text-gray-400 italic"
   >
+    對背景圖
     {#if $activePage.type === "pan"}
-      <LeftButtonIcon />按住左鍵拖曳旋轉
+      {#if $isMobile}{:else}
+        <LeftButtonIcon />按住左鍵拖曳旋轉
+      {/if}
     {:else if $activePage.type === "splat"}
       {#if $isMobile}{:else}
         <LeftButtonIcon />按住左鍵拖曳旋轉

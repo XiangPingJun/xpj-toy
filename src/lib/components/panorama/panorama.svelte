@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import * as THREE from "three";
   import CameraControls from "camera-controls";
-  import { panPov, activePage } from "$lib/stores/store";
+  import { panPov, activePage, mode } from "$lib/stores/store";
 
   // State
   let canvasElement: HTMLCanvasElement;
@@ -190,7 +190,10 @@
 </script>
 
 <div
-  class="panorama-container w-100vw h-100dvh fixed z--1 cursor-grab"
+  class={[
+    "panorama-container w-100vw h-100dvh fixed z--1",
+    $mode === "Inspect" ? "cursor-grab" : "pointer-events-none",
+  ]}
   class:loaded
 >
   <canvas

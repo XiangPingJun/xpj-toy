@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import * as pc from "playcanvas";
   import { CameraControls } from "./gs-camera-controls.js";
-  import { activePage, splatPov, resources } from "$lib/stores/store";
+  import { activePage, splatPov, mode } from "$lib/stores/store";
 
   let canvas: HTMLCanvasElement;
   let app: pc.Application;
@@ -115,4 +115,10 @@
   });
 </script>
 
-<canvas bind:this={canvas} class="w-full h-full cursor-grab"></canvas>
+<canvas
+  bind:this={canvas}
+  class={[
+    "w-full h-full",
+    $mode === "Inspect" ? "cursor-grab" : "pointer-events-none",
+  ]}
+></canvas>

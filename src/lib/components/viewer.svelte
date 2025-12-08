@@ -3,7 +3,7 @@
   import Hud from "$lib/components/hud/hud.svelte";
   import Media from "$lib/components/media.svelte";
   import Panorama from "$lib/components/panorama/panorama.svelte";
-  import { resources, activePage } from "$lib/stores/store";
+  import { resources, activePage, videoUrl, imgUrl } from "$lib/stores/store";
 </script>
 
 {#if !$resources[$activePage.url]}
@@ -20,6 +20,8 @@
   {:else if $activePage?.type === "pan"}
     <Panorama />
   {/if}
-  <Media />
+  {#key `${$videoUrl}${$imgUrl}`}
+    <Media />
+  {/key}
   <Hud />
 {/if}

@@ -45,7 +45,6 @@
           muted
           playsinline
           loop
-          controls
         >
           <track kind="captions" />
         </video>
@@ -62,7 +61,7 @@
             $imgUrl = "";
             $videoUrl = "";
           }}
-          tabindex="-1"><CloseIcon />2關閉</button
+          tabindex="-1"><CloseIcon />3關閉</button
         >]
       </div>
       <div

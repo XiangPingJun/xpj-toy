@@ -6,6 +6,7 @@
   import { onMount } from "svelte";
   import { isPortrait } from "$lib/stores/store";
   import ListIcon from "$lib/components/icons/list-icon.svelte";
+  import CommentIcon from "$lib/components/icons/comment-icon.svelte";
 
   export const title = "(^ω^)祥平的玩具櫃";
   const description =
@@ -74,13 +75,13 @@
               alt=""
             />
             <div
-              class="font-[uoqmunthenkhung] absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
+              class="absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
               style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
             >
               <div
                 class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
               >
-                ❝{caption}❞
+                <CommentIcon />{caption}
               </div>
             </div>
           </div>

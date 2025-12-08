@@ -3,7 +3,7 @@
 </script>
 
 <svg
-  class={["w-[1em] h-[1em] inline mr-0.5", props.class]}
+  class={["w-[1rem] h-[1rem] inline mr-0.5", props.class]}
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 48 48"
   ><g fill="none"

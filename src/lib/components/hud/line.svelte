@@ -10,7 +10,7 @@
     resources,
   } from "$lib/stores/store";
   import ListIcon from "$lib/components/icons/list-icon.svelte";
-  import RightIcon from "$lib/components/icons/right-icon.svelte";
+  import RightArrowIcon from "$lib/components/icons/right-arrow-icon.svelte";
   import PaperPlane from "$lib/components/icons/paper-plane-icon.svelte";
 
   let props = $props();
@@ -52,7 +52,7 @@
 >
   {#if props.isActive}
     {#if loading}
-      <img src="/loading.svg" alt="" class="w-[1rem] h-[1rem] inline" />
+      <img src="/loading.svg" alt="" class="w-[1rem] h-[1rem] inline mr-1" />
     {:else}
       <PaperPlane />
     {/if}
@@ -67,7 +67,7 @@
           onclick={() => $activePageIndex++}
           tabindex="-1"
         >
-          <RightIcon />下頁繼續...
+          <RightArrowIcon />下頁繼續...
         </button>
       {:else if $pages.length === 1 || $activePageIndex === $pages.length - 1}
         <button

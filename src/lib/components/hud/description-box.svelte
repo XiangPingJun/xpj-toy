@@ -5,8 +5,8 @@
   import BorderBox from "./border-box.svelte";
   import VrGlassIcon from "$lib/components/icons/vr-glass-icon.svelte";
   import ListIcon from "$lib/components/icons/list-icon.svelte";
-  import RightIcon from "$lib/components/icons/right-icon.svelte";
-  import LeftIcon from "$lib/components/icons/left-icon.svelte";
+  import RightArrowIcon from "$lib/components/icons/right-arrow-icon.svelte";
+  import LeftArrowIcon from "$lib/components/icons/left-arrow-icon.svelte";
 </script>
 
 {#snippet changeViewButton()}
@@ -51,7 +51,7 @@
       onclick={() => $activePageIndex--}
       tabindex="-1"
     >
-      <LeftIcon />上頁
+      <LeftArrowIcon />上頁
     </button>]
   {/if}
   {#if $activePageIndex < $pages.length - 1}[<button
@@ -59,11 +59,21 @@
       onclick={() => $activePageIndex++}
       tabindex="-1"
     >
-      下頁<RightIcon />
+      下頁<RightArrowIcon />
     </button>]
   {:else if $pages.length > 1 && $activePageIndex === $pages.length - 1}
     {@render overviewButton()}
   {/if}
 {/snippet}
 
-<BorderBox {upper} {content} {lower} />
+<BorderBox
+  class={[
+    $mode === "Description" ? "opacity-100" : "opacity-0",
+    "transition-all",
+  ]}
+  {upper}
+  {content}
+  contentClass={$mode === "Description" && "pointer-events-auto"}
+  {lower}
+  lowerClass={$mode === "Description" && "pointer-events-auto"}
+/>

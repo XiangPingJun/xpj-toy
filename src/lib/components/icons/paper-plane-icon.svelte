@@ -1,0 +1,13 @@
+<script lang="ts">
+  const props = $props();
+</script>
+
+<svg
+  class={["w-[1em] h-[1em] inline mr-0.5", props.class]}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 512 512"
+  ><path
+    fill="currentColor"
+    d="M469.333 256L64 42.667l64.213 212.693L64 469.333zm-303.146 21.333H256v-42.666h-89.6l-32.213-106.88L377.6 256L133.973 384.213l32-106.88z"
+  /></svg
+>

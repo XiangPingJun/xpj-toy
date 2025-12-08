@@ -11,6 +11,7 @@
   } from "$lib/stores/store";
   import ListIcon from "$lib/components/icons/list-icon.svelte";
   import RightIcon from "$lib/components/icons/right-icon.svelte";
+  import PaperPlane from "$lib/components/icons/paper-plane-icon.svelte";
 
   let props = $props();
   let loading = $state(false);
@@ -53,10 +54,9 @@
     {#if loading}
       <img src="/loading.svg" alt="" class="w-[1rem] h-[1rem] inline" />
     {:else}
-      <i class="las la-paper-plane"></i>
+      <PaperPlane />
     {/if}
-  {/if}
-  {props.text}
+  {/if}{props.text}
   {#if props.isLast}
     <div></div>
     {#if props.isActive}

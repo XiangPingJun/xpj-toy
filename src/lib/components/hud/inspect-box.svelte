@@ -5,10 +5,11 @@
   import MiddleButtonIcon from "$lib/components/icons/middle-button-icon.svelte";
   import RightButtonIcon from "$lib/components/icons/right-button-icon.svelte";
   import VrGlassIcon from "$lib/components/icons/vr-glass-icon.svelte";
+  import CommentIcon from "$lib/components/icons/comment-icon.svelte";
 </script>
 
 {#snippet upper()}
-  [<VrGlassIcon class="w-[1em] h-[1em] inline" />調整視角]
+  [<VrGlassIcon />調整視角]
 {/snippet}
 
 {#snippet content()}
@@ -16,12 +17,12 @@
     class="bg-black/75 border-white box-content border-l-3 border-r-3 whitespace-pre-line px-4"
   >
     {#if $activePage.type === "pan"}
-      <LeftButtonIcon class="w-[1em] h-[1em] inline" />按住左鍵拖曳旋轉
+      <LeftButtonIcon />按住左鍵拖曳旋轉
     {:else if $activePage.type === "splat"}
       {#if $isMobile}{:else}
-        <LeftButtonIcon class="w-[1em] h-[1em] inline" />按住左鍵拖曳旋轉
-        <MiddleButtonIcon class="w-[1em] h-[1em] inline" />滾動滾輪縮放
-        <RightButtonIcon class="w-[1em] h-[1em] inline" />按住右鍵拖曳平移
+        <LeftButtonIcon />按住左鍵拖曳旋轉
+        <MiddleButtonIcon />滾動滾輪縮放
+        <RightButtonIcon />按住右鍵拖曳平移
       {/if}
     {/if}
   </div>
@@ -33,8 +34,7 @@
     onclick={() => ($mode = "Description")}
     tabindex="-1"
   >
-    <i class="las la-comment"></i>
-    顯示內文
+    <CommentIcon />顯示內文
   </button>]
 {/snippet}
 

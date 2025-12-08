@@ -5,7 +5,6 @@
   import CloseIcon from "$lib/components/icons/close-icon.svelte";
 </script>
 
-<!-- transition:fly={{ y: "2rem" }} -->
 {#if ($imgUrl && $resources[$imgUrl]) || ($videoUrl && $resources[$videoUrl])}
   <div
     class={[
@@ -14,6 +13,7 @@
         : "opacity-0 pointer-events-none",
       "fixed left-1/2 -translate-x-1/2 top-3 transition-all",
     ]}
+    transition:fly={{ y: "2rem" }}
   >
     <div
       class="backdrop-blur-xs absolute top-[0.2rem] w-full h-[calc(100%-1rem)] -z-10"
@@ -34,10 +34,9 @@
         />
       {:else if $resources[$videoUrl]}
         <video
-          src={$videoUrl}
+          src="https://gunpla-hobby.github.io/NewYearEve/ants.mp4"
           class={[
-            "max-w-[min(1360px,calc(100vw-2rem))] object-cover",
-            //  backdrop-blur-sm blur-bg",
+            "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait
               ? "max-h-[calc(100dvh-20rem)]"
               : "max-h-[calc(100dvh-22rem)]",
@@ -63,7 +62,7 @@
             $imgUrl = "";
             $videoUrl = "";
           }}
-          tabindex="-1"><CloseIcon />1關閉</button
+          tabindex="-1"><CloseIcon />2關閉</button
         >]
       </div>
       <div

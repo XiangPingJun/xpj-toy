@@ -1,15 +1,10 @@
 <script lang="ts">
   import { imgUrl, videoUrl, resources } from "$lib/stores/store";
-  import { fly } from "svelte/transition";
   import { isPortrait, mode } from "$lib/stores/store";
   import CloseIcon from "$lib/components/icons/close-icon.svelte";
-  import { onMount } from "svelte";
-  let mounted = $state(false);
-
-  onMount(() => (mounted = true));
 </script>
 
-{#if mounted && (($imgUrl && $resources[$imgUrl]) || $videoUrl)}
+{#if ($imgUrl && $resources[$imgUrl]) || $videoUrl}
   <div
     class={[
       $mode === "Description"
@@ -17,7 +12,6 @@
         : "opacity-0 pointer-events-none",
       "fixed left-1/2 -translate-x-1/2 top-3 transition-all",
     ]}
-    transition:fly={{ y: "2rem" }}
   >
     <div
       class="backdrop-blur-xs absolute top-[0.2rem] w-full h-[calc(100%-1rem)] -z-10"

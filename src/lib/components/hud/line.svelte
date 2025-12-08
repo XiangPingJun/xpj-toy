@@ -9,6 +9,8 @@
     videoUrl,
     resources,
   } from "$lib/stores/store";
+  import ListIcon from "$lib/components/icons/list-icon.svelte";
+  import RightIcon from "$lib/components/icons/right-icon.svelte";
 
   let props = $props();
   let loading = $state(false);
@@ -39,17 +41,6 @@
   });
 </script>
 
-{#snippet navigateButton(text: string, iconClass: string, onclick: () => void)}
-  <button
-    class="text-blue-400 hover:text-blue-300 cursor-pointer font-[uoqmunthenkhung] underline-offset-4 underline mt-3"
-    transition:fly={{ y: 24 }}
-    {onclick}
-  >
-    <i class={[iconClass, "underline-offset-4 underline"]}></i>
-    {text}
-  </button>
-{/snippet}
-
 <div
   class={[
     "font-[uoqmunthenkhung] snap-start mb-2 transition-all duration-500",
@@ -70,13 +61,23 @@
     <div></div>
     {#if props.isActive}
       {#if $activePageIndex < $pages.length - 1}
-        {@render navigateButton(
-          "下頁繼續...",
-          "las la-arrow-right",
-          () => $activePageIndex++,
-        )}
+        <button
+          class="text-blue-400 hover:text-blue-300 cursor-pointer font-[uoqmunthenkhung] mt-3 relative pb-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-current"
+          transition:fly={{ y: 24 }}
+          onclick={() => $activePageIndex++}
+          tabindex="-1"
+        >
+          <RightIcon />下頁繼續...
+        </button>
       {:else if $pages.length === 1 || $activePageIndex === $pages.length - 1}
-        {@render navigateButton("回到總覽", "las la-list", () => goto("/"))}
+        <button
+          class="text-blue-400 hover:text-blue-300 cursor-pointer font-[uoqmunthenkhung] mt-3 relative pb-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-current"
+          transition:fly={{ y: 24 }}
+          onclick={() => goto("/")}
+          tabindex="-1"
+        >
+          <ListIcon />回到總覽
+        </button>
       {/if}
     {:else}
       ...

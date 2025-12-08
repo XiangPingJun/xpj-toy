@@ -1,4 +1,4 @@
-import { writable, derived } from 'svelte/store';
+import { writable, derived, get } from 'svelte/store';
 
 export const splatPov = writable('');
 export const panPov = writable('');
@@ -26,6 +26,13 @@ export const activePage = derived(
 
 export const imgUrl = writable('');
 export const videoUrl = writable('');
+
+activePageIndex.subscribe(() => {
+  splatPov.set('');
+  panPov.set('');
+  imgUrl.set('');
+  videoUrl.set('');
+});
 
 export const autoRotate = writable(true);
 let autoRotateTimer: ReturnType<typeof setTimeout>;

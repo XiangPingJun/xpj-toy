@@ -3,9 +3,7 @@
   import Hud from "$lib/components/hud/hud.svelte";
   import Media from "$lib/components/media.svelte";
   import Panorama from "$lib/components/panorama/panorama.svelte";
-  import { activePageIndex, resources, activePage } from "$lib/stores/store";
-
-  $activePageIndex = 0;
+  import { resources, activePage } from "$lib/stores/store";
 </script>
 
 {#if !$resources[$activePage.url]}

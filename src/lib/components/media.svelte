@@ -2,6 +2,7 @@
   import { imgUrl, videoUrl, resources } from "$lib/stores/store";
   import { fly } from "svelte/transition";
   import { isPortrait, mode } from "$lib/stores/store";
+  import CloseIcon from "$lib/components/icons/close-icon.svelte";
 </script>
 
 <!-- transition:fly={{ y: "2rem" }} -->
@@ -59,7 +60,8 @@
           onclick={() => {
             $imgUrl = "";
             $videoUrl = "";
-          }}><i class="las la-window-close"></i>關閉</button
+          }}
+          tabindex="-1"><CloseIcon />關閉</button
         >]
       </div>
       <div

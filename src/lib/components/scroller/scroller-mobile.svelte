@@ -55,6 +55,7 @@
     class={["scrollbar-container pl-2 pr-4", props.class]}
     style:height={props.height}
     onscroll={updateScrollbar}
+    tabindex="-1"
   >
     {@render props.children()}
 

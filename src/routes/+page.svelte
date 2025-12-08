@@ -5,7 +5,7 @@
   import articles from "$lib/articles";
   import { onMount } from "svelte";
   import { isPortrait } from "$lib/stores/store";
-  import ListIcon from "../icons/list-icon.svelte";
+  import ListIcon from "$lib/components/icons/list-icon.svelte";
 
   export const title = "(^ω^)祥平的玩具櫃";
   const description =
@@ -65,7 +65,7 @@
             }}
             onkeydown={() => {}}
             role="button"
-            tabindex={i}
+            tabindex="-1"
             transition:blur={{ amount: "1rem" }}
           >
             <img

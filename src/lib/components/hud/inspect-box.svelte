@@ -1,10 +1,10 @@
 <script lang="ts">
   import { mode, isMobile, activePage } from "$lib/stores/store";
   import BorderBox from "./border-box.svelte";
-  import LeftButtonIcon from "../icons/left-button-icon.svelte";
-  import MiddleButtonIcon from "../icons/middle-button-icon.svelte";
-  import RightButtonIcon from "../icons/right-button-icon.svelte";
-  import VrGlassIcon from "../icons/vr-glass-icon.svelte";
+  import LeftButtonIcon from "$lib/components/icons/left-button-icon.svelte";
+  import MiddleButtonIcon from "$lib/components/icons/middle-button-icon.svelte";
+  import RightButtonIcon from "$lib/components/icons/right-button-icon.svelte";
+  import VrGlassIcon from "$lib/components/icons/vr-glass-icon.svelte";
 </script>
 
 {#snippet upper()}
@@ -31,6 +31,7 @@
   [<button
     class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
     onclick={() => ($mode = "Description")}
+    tabindex="-1"
   >
     <i class="las la-comment"></i>
     顯示內文

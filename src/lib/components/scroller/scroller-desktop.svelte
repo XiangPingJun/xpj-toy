@@ -28,6 +28,7 @@
     style:height={props.height}
     bind:this={container}
     onscroll={props.onScroll}
+    tabindex="-1"
   >
     {@render props.children()}
   </div>

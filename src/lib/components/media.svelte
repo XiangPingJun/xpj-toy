@@ -45,7 +45,8 @@
           bind:this={videoElement}
           src={$resources[$videoUrl]}
           class={[
-            "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
+            "max-w-[min(1360px,calc(100vw-2rem))] object-cover",
+            //  backdrop-blur-sm blur-bg",
             $isPortrait
               ? "max-h-[calc(100dvh-20rem)]"
               : "max-h-[calc(100dvh-22rem)]",

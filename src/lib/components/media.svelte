@@ -2,9 +2,16 @@
   import { imgUrl, videoUrl, resources } from "$lib/stores/store";
   import { isPortrait, mode } from "$lib/stores/store";
   import CloseIcon from "$lib/components/icons/close-icon.svelte";
+  import { fly } from "svelte/transition";
+  import { onMount } from "svelte";
+
+  let mounted = $state(false);
+  onMount(() => {
+    mounted = true;
+  });
 </script>
 
-{#if ($imgUrl && $resources[$imgUrl]) || $videoUrl}
+{#if mounted && (($imgUrl && $resources[$imgUrl]) || $videoUrl)}
   <div
     class={[
       $mode === "Description"
@@ -12,6 +19,7 @@
         : "opacity-0 pointer-events-none",
       "fixed left-1/2 -translate-x-1/2 top-3 transition-all",
     ]}
+    transition:fly={{ y: 24 }}
   >
     <div
       class="backdrop-blur-xs absolute top-[0.2rem] w-full h-[calc(100%-1rem)] -z-10"
@@ -30,9 +38,9 @@
           ]}
           alt=""
         />
-      {:else if $videoUrl}
+      {:else if $resources[$videoUrl]}
         <video
-          src="https://gunpla-hobby.github.io/NewYearEve/ants.mp4"
+          src={$resources[$videoUrl]}
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait
@@ -60,7 +68,7 @@
             $imgUrl = "";
             $videoUrl = "";
           }}
-          tabindex="-1"><CloseIcon />關閉</button
+          tabindex="-1"><CloseIcon />關閉1</button
         >]
       </div>
       <div

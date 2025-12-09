@@ -2,7 +2,7 @@
   import { imgUrl, videoUrl, resources } from "$lib/stores/store";
   import { isPortrait, mode } from "$lib/stores/store";
   import CloseIcon from "$lib/components/icons/close-icon.svelte";
-  import { fly } from "svelte/transition";
+  import { fade } from "svelte/transition";
 </script>
 
 {#key `${$imgUrl}${$videoUrl}`}
@@ -14,7 +14,7 @@
           : "opacity-0 pointer-events-none",
         "fixed left-1/2 -translate-x-1/2 top-3 transition-all",
       ]}
-      transition:fly={{ y: 24 }}
+      transition:fade
     >
       <div
         class="backdrop-blur-xs absolute top-[0.2rem] w-full h-[calc(100%-1rem)] -z-10"

@@ -25,23 +25,24 @@
 		return URL.createObjectURL(new Blob([buffer]));
 	};
 
-	$effect(() => {
-		if (!$pages.length) {
-			return;
-		}
-		(async () => {
-			if ($resources[$pages[0].url]) {
-				for (let i = 1; i < $pages.length; i++) {
-					if ($resources[$pages[i].url] === undefined) {
-						$resources[$pages[i].url] = null;
-						$resources[$pages[i].url] = await load($pages[i].url);
-					}
-				}
-			} else if ($resources[$pages[0].url] === undefined) {
-				$resources[$pages[0].url] = null;
-				$resources[$pages[0].url] = await load($pages[0].url);
+	onMount(async () => {
+		for (let page of $pages) {
+			if ($resources[page.url] === undefined) {
+				$resources[page.url] = null;
+				$resources[page.url] = await load(page.url);
 			}
-		})();
+			for (let line of page.lines) {
+				const { imgUrl, videoUrl } = line as any;
+				if (imgUrl && $resources[imgUrl] === undefined) {
+					$resources[imgUrl] = null;
+					$resources[imgUrl] = await load(imgUrl);
+				}
+				if (videoUrl && $resources[videoUrl] === undefined) {
+					$resources[videoUrl] = null;
+					$resources[videoUrl] = await load(videoUrl);
+				}
+			}
+		}
 	});
 
 	onDestroy(() => {

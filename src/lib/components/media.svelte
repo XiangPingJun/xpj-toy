@@ -60,7 +60,7 @@
               $imgUrl = "";
               $videoUrl = "";
             }}
-            tabindex="-1"><CloseIcon />關閉7</button
+            tabindex="-1"><CloseIcon />關閉8</button
           >]
         </div>
         <div

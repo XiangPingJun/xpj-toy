@@ -32,7 +32,7 @@
         />
       {:else if $resources[$videoUrl]}
         <video
-          src="ants.mp4"
+          src={$resources[$videoUrl]}
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait
@@ -43,9 +43,7 @@
           muted
           playsinline
           loop
-        >
-          <track kind="captions" />
-        </video>
+        ></video>
       {/if}
     </div>
     <div class="flex">

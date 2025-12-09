@@ -53,13 +53,13 @@
     height="calc(100dvh - 2rem)"
   >
     <div class="flex justify-center items-center gap-1 text-2xl mb-2">
-      <ListIcon />總覽
+      <ListIcon class="w-[2rem] h-[2rem]" />總覽
     </div>
     <div class="flex justify-center items-center flex-wrap">
       {#each data as { path, caption }, i}
         {#if leavingByIndex === null || leavingByIndex === i}
           <div
-            class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 hover:text-gray-300"
+            class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 text-blue-300"
             onclick={() => {
               leavingByIndex = i;
               goto(`/v/${path}/v`);

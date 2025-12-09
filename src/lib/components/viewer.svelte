@@ -3,10 +3,14 @@
   import Hud from "$lib/components/hud/hud.svelte";
   import Media from "$lib/components/media.svelte";
   import Panorama from "$lib/components/panorama/panorama.svelte";
-  import { resources, activePage, videoUrl, imgUrl } from "$lib/stores/store";
+  import {
+    resources,
+    activePage,
+    descriptionInitialized,
+  } from "$lib/stores/store";
 </script>
 
-{#if !$resources[$activePage.url]}
+{#snippet loading()}
   <div
     class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl"
   >
@@ -14,14 +18,19 @@
       <img src="/loading.svg" alt="" class="w-[4rem] h-[4rem]" />
     </div>
   </div>
+{/snippet}
+
+{#if !$resources[$activePage.url]}
+  {@render loading()}
 {:else}
-  {#if $activePage?.type === "splat"}
-    <GsViewer />
-  {:else if $activePage?.type === "pan"}
-    <Panorama />
+  {#if !$descriptionInitialized}
+    {@render loading()}
   {/if}
-  {#key `${$videoUrl}${$imgUrl}`}
-    <Media />
-  {/key}
+  {#if $activePage?.type === "splat"}
+    <GsViewer class={[!$descriptionInitialized && "opacity-0"]} />
+  {:else if $activePage?.type === "pan"}
+    <Panorama class={[!$descriptionInitialized && "opacity-0"]} />
+  {/if}
   <Hud />
+  <Media />
 {/if}

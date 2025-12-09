@@ -4,10 +4,11 @@
   import { CameraControls } from "./gs-camera-controls.js";
   import { activePage, splatPov, mode } from "$lib/stores/store";
 
+  const props = $props();
+
   let canvas: HTMLCanvasElement;
   let app: pc.Application;
   let camera: pc.Entity;
-  let saveInterval: ReturnType<typeof setInterval>;
   let lastSavedPov: string | undefined;
 
   export const saveCameraState = async () => {
@@ -20,7 +21,7 @@
 
     const povToSave = JSON.stringify(
       [...position.toArray(), ...angles.toArray(), distance].map(
-        (n) => Math.round(n * 10000) / 10000,
+        (n) => Math.round(n * 100000) / 100000,
       ),
     );
 
@@ -63,7 +64,7 @@
     pc.registerScript(CameraControls, "cameraControls");
 
     // Resize handler
-    const handleResize = () => app.resizeCanvas();
+    const handleResize = () => canvas && app.resizeCanvas();
     window.addEventListener("resize", handleResize);
 
     // Load assets
@@ -120,5 +121,6 @@
   class={[
     "w-full h-full",
     $mode === "Inspect" ? "cursor-grab" : "pointer-events-none",
+    props.class,
   ]}
 ></canvas>

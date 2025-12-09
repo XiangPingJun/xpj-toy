@@ -27,7 +27,7 @@ export const activePage = derived(
 export const imgUrl = writable('');
 export const videoUrl = writable('');
 
-activePageIndex.subscribe(() => {
+activePage.subscribe(() => {
   splatPov.set('');
   panPov.set('');
   imgUrl.set('');

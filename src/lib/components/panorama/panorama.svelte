@@ -4,6 +4,8 @@
   import CameraControls from "camera-controls";
   import { panPov, activePage, mode } from "$lib/stores/store";
 
+  const props = $props();
+
   // State
   let canvasElement: HTMLCanvasElement;
   let zoom = 1;
@@ -201,7 +203,7 @@
     {width}
     {height}
     onwheel={onWheel}
-    class="panorama-canvas w-full h-full"
+    class={["panorama-canvas w-full h-full", props.class]}
   ></canvas>
 </div>
 

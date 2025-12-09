@@ -4,7 +4,7 @@
   const props = $props();
   let container: HTMLDivElement;
   let lastExecutionTime = 0;
-  const throttleInterval = 1000;
+  const throttleInterval = 500;
 
   onMount(() => {
     container.addEventListener(

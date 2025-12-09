@@ -53,7 +53,6 @@
     <div bind:this={lineRefs[i]} data-index={i} transition:slide>
       <Line
         {...line}
-        text={line.text}
         isLast={$descriptionInitialized && i === $activePage.lines.length - 1}
         isActive={$descriptionInitialized && firstLineIndex === i}
         height={props.height}

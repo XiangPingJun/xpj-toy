@@ -4,13 +4,7 @@
 	import { onMount, onDestroy } from "svelte";
 	import { browser } from "$app/environment";
 	import { page } from "$app/state";
-	import {
-		pages,
-		resources,
-		imgUrl,
-		videoUrl,
-		activePage,
-	} from "$lib/stores/store";
+	import { pages, resources, activePage } from "$lib/stores/store";
 	import articles from "$lib/articles";
 	import Viewer from "$lib/components/viewer.svelte";
 
@@ -46,27 +40,14 @@
 	});
 
 	onDestroy(() => {
-		$pages.forEach((page) => URL.revokeObjectURL($resources[page.url] ?? ""));
-	});
-
-	$effect(() => {
-		if (!$imgUrl || $resources[$imgUrl] !== undefined) {
-			return;
-		}
-		(async () => {
-			$resources[$imgUrl] = null;
-			$resources[$imgUrl] = await load($imgUrl);
-		})();
-	});
-
-	$effect(() => {
-		if (!$videoUrl || $resources[$videoUrl] !== undefined) {
-			return;
-		}
-		(async () => {
-			$resources[$videoUrl] = null;
-			$resources[$videoUrl] = await load($videoUrl);
-		})();
+		$pages.forEach((page) => {
+			URL.revokeObjectURL($resources[page.url] ?? "");
+			page.lines.forEach((line) => {
+				const { imgUrl, videoUrl } = line as any;
+				URL.revokeObjectURL(imgUrl ?? "");
+				URL.revokeObjectURL(videoUrl ?? "");
+			});
+		});
 	});
 
 	let resizing = $state(false);

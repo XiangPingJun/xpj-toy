@@ -32,7 +32,7 @@
         />
       {:else if $resources[$videoUrl]}
         <video
-          src={$resources[$videoUrl]}
+          src="https://gunpla-hobby.github.io/NewYearEve/ants.mp4"
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait
@@ -59,7 +59,7 @@
             $imgUrl = "";
             $videoUrl = "";
           }}
-          tabindex="-1"><CloseIcon />關閉4</button
+          tabindex="-1"><CloseIcon />關閉5</button
         >]
       </div>
       <div

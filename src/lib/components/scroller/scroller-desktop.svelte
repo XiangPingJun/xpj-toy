@@ -1,40 +1,44 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
 
   const props = $props();
   let container: HTMLDivElement;
   let lastExecutionTime = 0;
   const throttleInterval = 500;
 
+  const onWheel = (event: WheelEvent) => {
+    event.preventDefault();
+
+    const now = Date.now();
+    if (now - lastExecutionTime < throttleInterval) {
+      return;
+    }
+    lastExecutionTime = now;
+
+    container.scrollBy({ top: Math.sign(event.deltaY) });
+  };
+
+  const onKeyUp = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowDown":
+      case "PageDown":
+        container?.scrollBy({ top: 1 });
+        break;
+      case "ArrowUp":
+      case "PageUp":
+        container?.scrollBy({ top: -1 });
+        break;
+    }
+  };
+
   onMount(() => {
-    container.addEventListener(
-      "wheel",
-      (event) => {
-        event.preventDefault();
+    container.addEventListener("wheel", onWheel, { passive: false });
+    document.addEventListener("keydown", onKeyUp, { passive: false });
+  });
 
-        const now = Date.now();
-        if (now - lastExecutionTime < throttleInterval) {
-          return;
-        }
-        lastExecutionTime = now;
-
-        container.scrollBy({ top: Math.sign(event.deltaY) });
-      },
-      { passive: false },
-    );
-
-    document.addEventListener("keydown", (event) => {
-      switch (event.key) {
-        case "ArrowDown":
-        case "PageDown":
-          container.scrollBy({ top: 1 });
-          break;
-        case "ArrowUp":
-        case "PageUp":
-          container.scrollBy({ top: -1 });
-          break;
-      }
-    });
+  onDestroy(() => {
+    container?.removeEventListener("wheel", onWheel);
+    document.removeEventListener("keydown", onKeyUp);
   });
 </script>
 

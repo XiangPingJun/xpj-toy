@@ -40,6 +40,8 @@
     );
   };
 
+  let saveInterval: ReturnType<typeof setInterval>;
+
   onMount(async () => {
     if (!canvas) return;
 
@@ -113,6 +115,7 @@
     if (app) {
       app.destroy();
     }
+    clearInterval(saveInterval);
   });
 </script>
 

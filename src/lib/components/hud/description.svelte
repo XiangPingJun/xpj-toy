@@ -6,7 +6,7 @@
   import { slide } from "svelte/transition";
 
   const props = $props();
-  const lineRefs: HTMLDivElement[] = [];
+  let lineRefs = $state<HTMLDivElement[]>([]);
   const intersectingLineIndexes = $state<boolean[]>([]);
   let lines = $state<any[]>([]);
   const firstLineIndex = $derived.by(() =>

@@ -39,9 +39,9 @@
             ]}
             alt=""
           />
-        {:else if $resources[$videoUrl]}
+        {:else if $videoUrl}
           <video
-            src={$resources[$videoUrl]}
+            src={$videoUrl}
             class={[
               "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
               $isPortrait

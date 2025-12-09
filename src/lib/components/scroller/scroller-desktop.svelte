@@ -16,18 +16,25 @@
         if (now - lastExecutionTime < throttleInterval) {
           return;
         }
-
         lastExecutionTime = now;
 
-        const direction = Math.sign(event.deltaY);
-        const scrollAmount = direction;
-
-        container.scrollBy({
-          top: scrollAmount,
-        });
+        container.scrollBy({ top: Math.sign(event.deltaY) });
       },
       { passive: false },
     );
+
+    document.addEventListener("keydown", (event) => {
+      switch (event.key) {
+        case "ArrowDown":
+        case "PageDown":
+          container.scrollBy({ top: 1 });
+          break;
+        case "ArrowUp":
+        case "PageUp":
+          container.scrollBy({ top: -1 });
+          break;
+      }
+    });
   });
 </script>
 
@@ -36,7 +43,6 @@
     class="scrollbar-container pl-4 pr-2 mr-2"
     style:height={props.height}
     bind:this={container}
-    onscroll={props.onScroll}
     tabindex="-1"
   >
     {@render props.children()}

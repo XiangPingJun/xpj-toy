@@ -14,7 +14,7 @@
       }
     },
     {
-      "route": "/v/*.mp4",
+      "route": "/static/*.mp4",
       "headers": {
         "content-type": "video/mp4"
       }

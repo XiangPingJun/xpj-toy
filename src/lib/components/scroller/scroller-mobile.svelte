@@ -30,23 +30,6 @@
   onDestroy(() => {
     resizeObserver?.disconnect();
   });
-
-  onMount(() => {
-    container.addEventListener(
-      "wheel",
-      (event) => {
-        event.preventDefault();
-
-        const direction = Math.sign(event.deltaY);
-        const scrollAmount = direction * 24;
-
-        container.scrollBy({
-          top: scrollAmount,
-        });
-      },
-      { passive: false },
-    );
-  });
 </script>
 
 <div class="relative">

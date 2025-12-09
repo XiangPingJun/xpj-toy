@@ -3,6 +3,8 @@
 
   const props = $props();
   let container: HTMLDivElement;
+  let lastExecutionTime = 0;
+  const throttleInterval = 1000;
 
   onMount(() => {
     container.addEventListener(
@@ -10,8 +12,15 @@
       (event) => {
         event.preventDefault();
 
+        const now = Date.now();
+        if (now - lastExecutionTime < throttleInterval) {
+          return;
+        }
+
+        lastExecutionTime = now;
+
         const direction = Math.sign(event.deltaY);
-        const scrollAmount = direction * 24;
+        const scrollAmount = direction;
 
         container.scrollBy({
           top: scrollAmount,

@@ -32,7 +32,7 @@
         />
       {:else if $videoUrl}
         <video
-          src={$videoUrl}
+          src="https://gunpla-hobby.github.io/NewYearEve/ants.mp4"
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait

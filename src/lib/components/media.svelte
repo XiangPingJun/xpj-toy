@@ -4,7 +4,7 @@
   import CloseIcon from "$lib/components/icons/close-icon.svelte";
 </script>
 
-{#if ($imgUrl && $resources[$imgUrl]) || $videoUrl}
+{#if ($imgUrl && $resources[$imgUrl]) || ($videoUrl && $resources[$videoUrl])}
   <div
     class={[
       $mode === "Description"
@@ -30,9 +30,9 @@
           ]}
           alt=""
         />
-      {:else if $videoUrl}
+      {:else if $resources[$videoUrl]}
         <video
-          src={$videoUrl}
+          src={$resources[$videoUrl]}
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait

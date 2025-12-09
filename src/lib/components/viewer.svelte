@@ -1,0 +1,27 @@
+<script lang="ts">
+  import GsViewer from "$lib/components/gs-viewer/gs-viewer.svelte";
+  import Hud from "$lib/components/hud/hud.svelte";
+  import Media from "$lib/components/media.svelte";
+  import Panorama from "$lib/components/panorama/panorama.svelte";
+  import { resources, activePage, videoUrl, imgUrl } from "$lib/stores/store";
+</script>
+
+{#if !$resources[$activePage.url]}
+  <div
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl"
+  >
+    <div class="flex items-center gap-1">
+      <img src="/loading.svg" alt="" class="w-[4rem] h-[4rem]" />
+    </div>
+  </div>
+{:else}
+  {#if $activePage?.type === "splat"}
+    <GsViewer />
+  {:else if $activePage?.type === "pan"}
+    <Panorama />
+  {/if}
+  {#key `${$videoUrl}${$imgUrl}`}
+    <Media />
+  {/key}
+  <Hud />
+{/if}

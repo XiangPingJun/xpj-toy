@@ -1,0 +1,66 @@
+<script lang="ts">
+  import { onMount } from "svelte";
+
+  const props = $props();
+  let container: HTMLDivElement;
+  let lastExecutionTime = 0;
+  const throttleInterval = 1000;
+
+  onMount(() => {
+    container.addEventListener(
+      "wheel",
+      (event) => {
+        event.preventDefault();
+
+        const now = Date.now();
+        if (now - lastExecutionTime < throttleInterval) {
+          return;
+        }
+
+        lastExecutionTime = now;
+
+        const direction = Math.sign(event.deltaY);
+        const scrollAmount = direction;
+
+        container.scrollBy({
+          top: scrollAmount,
+        });
+      },
+      { passive: false },
+    );
+  });
+</script>
+
+<div class={props.class}>
+  <div
+    class="scrollbar-container pl-4 pr-2 mr-2"
+    style:height={props.height}
+    bind:this={container}
+    onscroll={props.onScroll}
+    tabindex="-1"
+  >
+    {@render props.children()}
+  </div>
+</div>
+
+<style>
+  .scrollbar-container {
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .scrollbar-container::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  .scrollbar-container::-webkit-scrollbar-track {
+    background-color: #333;
+    border-radius: 0.5rem;
+  }
+
+  .scrollbar-container::-webkit-scrollbar-thumb {
+    background-color: #999;
+    border-radius: 0.5rem;
+  }
+</style>

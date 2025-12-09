@@ -1,0 +1,34 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/static/*",
+      "/*.{css,scss,js,png,gif,ico,jpg,svg}"
+    ]
+  },
+  "routes": [
+    {
+      "route": "/static/v/*.mp4",
+      "headers": {
+        "content-type": "video/mp4"
+      }
+    },
+    {
+      "route": "/static/*",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
+    }
+  ],
+  "mimeTypes": {
+    ".json": "application/json",
+    ".js": "text/javascript",
+    ".css": "text/css",
+    ".html": "text/html",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".svg": "image/svg+xml",
+    ".spz": "application/octet-stream",
+    ".mp4": "video/mp4"
+  }
+}

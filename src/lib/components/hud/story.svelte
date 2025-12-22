@@ -60,7 +60,7 @@
             {line.title}
           </h2>
         {/if}
-        <div class={["text-slate-200 px-1", !$isMobile && "text-lg"]}>
+        <div class={["text-slate-200 px-2", !$isMobile && "text-lg"]}>
           {line.text}
           {#if i === $article.lines.length - 1}
             <div class="text-slate-400 italic mt-2">(往下以回到一覽)</div>
@@ -108,14 +108,14 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
   }
 
   .story-section {
-    height: 100vh;
+    height: 100dvh;
     width: 100%;
     scroll-snap-align: start;
     display: flex;

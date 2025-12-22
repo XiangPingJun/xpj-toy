@@ -13,7 +13,7 @@
 
 <div
   class={[
-    "fixed top-0 left-0 w-full h-[100dvh] flex items-end justify-center pb-10 pointer-events-none px-1 text-slate-400 text-lg italic",
+    "fixed top-0 left-0 w-full h-[100dvh] flex items-end justify-center pb-10 pointer-events-none px-2 text-slate-400 text-lg italic",
     !$isMobile && "text-xl",
   ]}
 >

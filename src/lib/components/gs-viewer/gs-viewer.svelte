@@ -116,8 +116,8 @@
 <canvas
   bind:this={canvas}
   class={[
-    "w-full h-full",
-    $mode === "Story" ? "cursor-grab" : "pointer-events-none",
+    "w-full h-[100dvh]",
+    $mode === "Story" ? "pointer-events-none" : "cursor-grab",
     props.class,
   ]}
 ></canvas>

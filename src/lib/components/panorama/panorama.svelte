@@ -203,7 +203,7 @@
     {width}
     {height}
     onwheel={onWheel}
-    class={["panorama-canvas w-full h-full", props.class]}
+    class={["panorama-canvas w-full h-[100dvh]", props.class]}
   ></canvas>
 </div>
 

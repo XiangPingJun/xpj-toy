@@ -11,6 +11,22 @@
 
 	<script>
 		window.oncontextmenu = (e) => e.preventDefault();
+
+		document.addEventListener('gesturestart', function (e) {
+			e.preventDefault();
+		}, { passive: false });
+
+		document.addEventListener('gesturechange', function (e) {
+			e.preventDefault();
+		}, { passive: false });
+
+		document.addEventListener('gestureend', function (e) {
+			e.preventDefault();
+		}, { passive: false });
+
+		document.addEventListener('touchstart', function (e) {
+			e.preventDefault();
+		}, { passive: false });
 	</script>
 </head>
 

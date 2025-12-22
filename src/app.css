@@ -16,6 +16,11 @@
   --disabled: #111;
 }
 
+html,
+body {
+  touch-action: none;
+}
+
 body {
   overflow: hidden;
   font-family: "LXGW WenKai Mono TC", monospace;

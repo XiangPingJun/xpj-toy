@@ -2,9 +2,11 @@
   import { onMount, onDestroy } from "svelte";
   import * as THREE from "three";
   import CameraControls from "camera-controls";
-  import { panPov, activePage, mode } from "$lib/stores/store";
+  import { activeLine, subjectUrl, mode } from "$lib/stores/store";
 
   const props = $props();
+
+  let container: HTMLDivElement;
 
   // State
   let canvasElement: HTMLCanvasElement;
@@ -25,8 +27,8 @@
   const animationSpeed = 0.15;
 
   $effect(() => {
-    if ($panPov && cameraControls) {
-      cameraControls.fromJSON($panPov, true);
+    if ($activeLine?.pov && cameraControls) {
+      cameraControls.fromJSON($activeLine.pov, true);
     }
   });
 
@@ -87,9 +89,7 @@
 
   async function createEnvironmentSphere() {
     try {
-      const panTexture = await new THREE.TextureLoader().loadAsync(
-        $activePage.url,
-      );
+      const panTexture = await new THREE.TextureLoader().loadAsync($subjectUrl);
 
       panTexture.mapping = THREE.EquirectangularReflectionMapping;
       panTexture.colorSpace = THREE.SRGBColorSpace;
@@ -115,11 +115,10 @@
     try {
       await createEnvironmentSphere();
       createScene();
-      if ($panPov) {
-        cameraControls.fromJSON($panPov, true);
+      if ($activeLine?.pov) {
+        cameraControls.fromJSON($activeLine.pov, true);
       }
       handleResize();
-      // 延遲一小段時間再設為loaded，確保渲染已開始
       setTimeout(() => (loaded = true), 100);
     } catch (error) {
       console.error("Failed to load panorama:", error);
@@ -197,6 +196,7 @@
     $mode === "Inspect" ? "cursor-grab" : "pointer-events-none",
   ]}
   class:loaded
+  bind:this={container}
 >
   <canvas
     bind:this={canvasElement}
@@ -211,9 +211,20 @@
   .panorama-container {
     opacity: 0;
     transition: opacity 0.5s ease-out;
+    animation: breathe 30s ease-in-out infinite;
   }
 
   .panorama-container.loaded {
     opacity: 1;
+  }
+
+  @keyframes breathe {
+    0%,
+    100% {
+      scale: 1.1;
+    }
+    50% {
+      scale: 1;
+    }
   }
 </style>

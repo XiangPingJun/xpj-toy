@@ -4,13 +4,12 @@
 	import { onMount, onDestroy } from "svelte";
 	import { browser } from "$app/environment";
 	import { page } from "$app/state";
-	import { pages, resources, activePage } from "$lib/stores/store";
 	import articles from "$lib/articles";
+	import { resources, subjectUrl, article } from "$lib/stores/store";
 	import Viewer from "$lib/components/viewer.svelte";
 
-	const article = (articles as any)[page.params.slug ?? ""] ?? {};
-	const { title, description } = article;
-	$pages = article.pages ?? [];
+	$article = (articles as any)[page.params.slug ?? ""] ?? {};
+	const { title, description } = $article;
 
 	const load = async (url: string) => {
 		if (!browser) return "";
@@ -20,33 +19,33 @@
 	};
 
 	onMount(async () => {
-		for (let page of $pages) {
-			if ($resources[page.url] === undefined) {
-				$resources[page.url] = null;
-				$resources[page.url] = await load(page.url);
+		if ($subjectUrl && $resources[$subjectUrl] === undefined) {
+			$resources[$subjectUrl] = null;
+			$resources[$subjectUrl] = await load($subjectUrl);
+		}
+		for (let line of $article.lines) {
+			const { subjectUrl, imgUrl, videoUrl } = line as any;
+			if (subjectUrl && $resources[subjectUrl] === undefined) {
+				$resources[subjectUrl] = null;
+				$resources[subjectUrl] = await load(subjectUrl);
 			}
-			for (let line of page.lines) {
-				const { imgUrl, videoUrl } = line as any;
-				if (imgUrl && $resources[imgUrl] === undefined) {
-					$resources[imgUrl] = null;
-					$resources[imgUrl] = await load(imgUrl);
-				}
-				if (videoUrl && $resources[videoUrl] === undefined) {
-					$resources[videoUrl] = null;
-					$resources[videoUrl] = await load(videoUrl);
-				}
+			if (imgUrl && $resources[imgUrl] === undefined) {
+				$resources[imgUrl] = null;
+				$resources[imgUrl] = await load(imgUrl);
+			}
+			if (videoUrl && $resources[videoUrl] === undefined) {
+				$resources[videoUrl] = null;
+				$resources[videoUrl] = await load(videoUrl);
 			}
 		}
 	});
 
 	onDestroy(() => {
-		$pages.forEach((page) => {
-			URL.revokeObjectURL($resources[page.url] ?? "");
-			page.lines.forEach((line) => {
-				const { imgUrl, videoUrl } = line as any;
-				URL.revokeObjectURL(imgUrl ?? "");
-				URL.revokeObjectURL(videoUrl ?? "");
-			});
+		URL.revokeObjectURL($resources[$subjectUrl] ?? "");
+		$article.lines.forEach((line: any) => {
+			const { imgUrl, videoUrl } = line;
+			URL.revokeObjectURL(imgUrl ?? "");
+			URL.revokeObjectURL(videoUrl ?? "");
 		});
 	});
 
@@ -85,8 +84,6 @@
 	<meta name="twitter:image" content="og-image.jpg" />
 </svelte:head>
 
-{#if !resizing && $activePage}
-	{#key $activePage}
-		<Viewer />
-	{/key}
+{#if !resizing}
+	<Viewer />
 {/if}

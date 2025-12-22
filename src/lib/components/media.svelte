@@ -1,27 +1,49 @@
 <script lang="ts">
-  import { imgUrl, videoUrl, resources } from "$lib/stores/store";
-  import { isPortrait, mode } from "$lib/stores/store";
-  import CloseIcon from "$lib/components/icons/close-icon.svelte";
+  import { activeLine, resources } from "$lib/stores/store";
+  import { isPortrait, mode, scrolling } from "$lib/stores/store";
+  import { fade } from "svelte/transition";
+
+  let imgUrl = $state("");
+  let videoUrl = $state("");
+
+  $effect(() => {
+    (async () => {
+      if (!$scrolling && $activeLine?.imgUrl) {
+        await new Promise((r) => setTimeout(r, 750));
+        imgUrl = $activeLine.imgUrl;
+      } else {
+        imgUrl = "";
+      }
+      if (!$scrolling && $activeLine?.videoUrl) {
+        await new Promise((r) => setTimeout(r, 750));
+        videoUrl = $activeLine.videoUrl;
+      } else {
+        videoUrl = "";
+      }
+    })();
+  });
 </script>
 
-{#if ($imgUrl && $resources[$imgUrl]) || ($videoUrl && $resources[$videoUrl])}
+{#if (imgUrl && $resources[imgUrl]) || (videoUrl && $resources[videoUrl])}
   <div
     class={[
-      $mode === "Description"
+      $mode === "Story"
         ? "opacity-100 pointer-events-auto"
         : "opacity-0 pointer-events-none",
-      "fixed left-1/2 -translate-x-1/2 top-3 transition-all",
+      "fixed left-1/2 -translate-x-1/2 transition-all pointer-events-none",
+      $isPortrait ? "top-3" : "top-9",
     ]}
+    in:fade
   >
     <div
       class="backdrop-blur-xs absolute top-[0.2rem] w-full h-[calc(100%-1rem)] -z-10"
     ></div>
     <div
-      class="rounded-tl-md rounded-tr-md border-3 border-b-0 border-white box-content bg-black/50 p-2 pb-0"
+      class="rounded-md border-3 border-slate-200 box-content bg-black/50 p-2"
     >
-      {#if $resources[$imgUrl]}
+      {#if $resources[imgUrl]}
         <img
-          src={$resources[$imgUrl]}
+          src={$resources[imgUrl]}
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait
@@ -30,9 +52,9 @@
           ]}
           alt=""
         />
-      {:else if $resources[$videoUrl]}
+      {:else if $resources[videoUrl]}
         <video
-          src={$resources[$videoUrl]}
+          src={$resources[videoUrl]}
           class={[
             "max-w-[min(1360px,calc(100vw-2rem))] object-cover backdrop-blur-sm blur-bg",
             $isPortrait
@@ -45,24 +67,6 @@
           loop
         ></video>
       {/if}
-    </div>
-    <div class="flex">
-      <div
-        class="rounded-bl-md border-b-3 border-l-3 border-white box-content h-[1em] bg-black/50 flex-grow"
-      ></div>
-      <div class="bg-black/50 pt-1.25 px-0.5 font-bold flex items-center">
-        [<button
-          class="text-blue-400 hover:text-blue-300 cursor-pointer flex items-center"
-          onclick={() => {
-            $imgUrl = "";
-            $videoUrl = "";
-          }}
-          tabindex="-1"><CloseIcon />關閉</button
-        >]
-      </div>
-      <div
-        class="rounded-br-md border-b-3 border-r-3 border-white box-content h-[1em] bg-black/50 w-[2rem]"
-      ></div>
     </div>
   </div>
 {/if}

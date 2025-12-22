@@ -1,38 +1,23 @@
 import { writable, derived } from 'svelte/store';
 
-export const splatPov = writable('');
-export const panPov = writable('');
-
-export const resources = writable({} as Record<string, string | null>);
-export const pages = writable([] as {
-  title?: string,
-  type: 'splat' | 'pan',
-  url: string,
-  lines: {
-    text: string,
-    pov: string,
-    imgurl?: string,
-    videourl?: string,
-  }[],
-}[]);
-
-export const descriptionInitialized = writable(false);
-
-export const activePageIndex = writable(0);
-export const activePage = derived(
-  [pages, activePageIndex],
-  ([$pages, $activePageIndex]) => $pages[$activePageIndex],
+export const article = writable({} as Record<string, any>);
+export const activeLineIndex = writable(0);
+export const activeLine = derived(
+  [article, activeLineIndex],
+  ([$article, $activeLineIndex]) => $article.lines[$activeLineIndex],
+);
+export const subjectUrl = derived(
+  [article, activeLineIndex],
+  ([$article, $activeLineIndex]) => {
+    for (let i = $activeLineIndex; i >= 0; i--) {
+      if ($article.lines[i].subjectUrl) {
+        return $article.lines[i].subjectUrl;
+      }
+    }
+  },
 );
 
-export const imgUrl = writable('');
-export const videoUrl = writable('');
-
-activePage.subscribe(() => {
-  splatPov.set('');
-  panPov.set('');
-  imgUrl.set('');
-  videoUrl.set('');
-});
+export const resources = writable({} as Record<string, string | null>);
 
 export const autoRotate = writable(true);
 let autoRotateTimer: ReturnType<typeof setTimeout>;
@@ -48,4 +33,6 @@ autoRotate.subscribe((val) => {
 export const isMobile = writable(false);
 export const isPortrait = writable(false);
 
-export const mode = writable<"Description" | "Inspect">("Description");
+export const mode = writable<"Story" | "Inspect">("Story");
+
+export const scrolling = writable(false);

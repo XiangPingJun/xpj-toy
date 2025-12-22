@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import * as pc from "playcanvas";
   import { CameraControls } from "./gs-camera-controls.js";
-  import { activePage, splatPov, mode } from "$lib/stores/store";
+  import { subjectUrl, activeLine, mode } from "$lib/stores/store";
 
   const props = $props();
 
@@ -41,6 +41,7 @@
   };
 
   let saveInterval: ReturnType<typeof setInterval>;
+  let handleResize: () => void;
 
   onMount(async () => {
     if (!canvas) return;
@@ -66,13 +67,13 @@
     pc.registerScript(CameraControls, "cameraControls");
 
     // Resize handler
-    const handleResize = () => canvas && app.resizeCanvas();
+    handleResize = () => canvas && app.resizeCanvas();
     window.addEventListener("resize", handleResize);
 
     // Load assets
     const assets = [
       new pc.Asset("toy", "gsplat", {
-        url: $activePage.url,
+        url: $subjectUrl,
       }),
     ];
 
@@ -96,26 +97,19 @@
     splat.addComponent("gsplat", { asset: assets[0] });
     app.root.addChild(splat);
 
-    saveInterval = setInterval(saveCameraState, 1000);
+    setCameraState(JSON.parse($activeLine.pov));
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      app.destroy();
-    };
+    saveInterval = setInterval(saveCameraState, 1000);
   });
 
   $effect(() => {
-    if (!$splatPov) {
-      return;
-    }
-    setCameraState(JSON.parse($splatPov));
+    setCameraState(JSON.parse($activeLine.pov));
   });
 
   onDestroy(() => {
-    if (app) {
-      app.destroy();
-    }
     clearInterval(saveInterval);
+    window.removeEventListener("resize", handleResize);
+    app?.destroy();
   });
 </script>
 
@@ -123,7 +117,7 @@
   bind:this={canvas}
   class={[
     "w-full h-full",
-    $mode === "Inspect" ? "cursor-grab" : "pointer-events-none",
+    $mode === "Story" ? "cursor-grab" : "pointer-events-none",
     props.class,
   ]}
 ></canvas>

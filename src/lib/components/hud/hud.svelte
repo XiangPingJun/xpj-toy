@@ -1,7 +1,12 @@
 <script lang="ts">
-  import DescriptionBox from "./description-box.svelte";
-  import InspectBox from "./inspect-box.svelte";
+  import Story from "./story.svelte";
+  import InspectInstruct from "./inspect-instruct.svelte";
+  import InspectToggle from "./inspect-toggle.svelte";
+  import { mode } from "$lib/stores/store";
 </script>
 
-<DescriptionBox />
-<InspectBox />
+<Story />
+{#if $mode === "Inspect"}
+  <InspectInstruct />
+{/if}
+<InspectToggle />

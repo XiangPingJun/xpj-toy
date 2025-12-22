@@ -38,7 +38,9 @@
 
   onDestroy(() => {
     container?.removeEventListener("wheel", onWheel);
-    document.removeEventListener("keydown", onKeyUp);
+    if (typeof document !== "undefined") {
+      document.removeEventListener("keydown", onKeyUp);
+    }
   });
 </script>
 

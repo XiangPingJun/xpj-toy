@@ -52,7 +52,7 @@
     class={[isPortrait ? "w-screen" : "w-[80vw]"]}
     height="calc(100dvh - 2rem)"
   >
-    <div class="flex justify-center items-center gap-1 text-2xl mb-2">
+    <div class="flex justify-center items-center text-2xl mb-2">
       <ListIcon class="w-[2rem] h-[2rem]" />總覽
     </div>
     <div class="flex justify-center items-center flex-wrap">
@@ -81,7 +81,7 @@
               <div
                 class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
               >
-                <CommentIcon />{caption}
+                <CommentIcon class="w-[1rem] h-[1rem] mr-0.5" />{caption}
               </div>
             </div>
           </div>

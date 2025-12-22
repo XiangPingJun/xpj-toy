@@ -18,7 +18,7 @@
 
 html,
 body {
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 body {

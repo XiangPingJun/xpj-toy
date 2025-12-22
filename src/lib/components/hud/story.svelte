@@ -2,6 +2,8 @@
   import { onMount, onDestroy } from "svelte";
   import { article, activeLineIndex } from "$lib/stores/store";
   import { isPortrait, isMobile, scrolling, mode } from "$lib/stores/store";
+  import SwipeUpIcon from "$lib/components/icons/swipe-up-icon.svelte";
+  import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
 
   let observer: IntersectionObserver;
   let container: HTMLElement;
@@ -62,25 +64,23 @@
         {/if}
         <div class={["text-slate-200 px-2", !$isMobile && "text-lg"]}>
           {line.text}
-          {#if i === $article.lines.length - 1}
-            <div class="text-slate-400 italic mt-2">(往下以回到一覽)</div>
-          {/if}
         </div>
-        {#if i === 0 || i === $article.lines.length - 1}
-          <div class="mt-4 animate-bounce opacity-50 mb-4">
-            <svg
-              class="w-6 h-6 mx-auto"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              ></path>
-            </svg>
+        {#if !i || i === $article.lines.length - 1}
+          <div
+            class={[
+              "mt-4 animate-bounce opacity-50 mb-4 text-slate-400 flex items-center justify-center italic",
+              !$isMobile && "text-lg",
+            ]}
+          >
+            {#if $isMobile}
+              <SwipeUpIcon
+                class="w-[1rem] h-[1rem]"
+              />{#if !i}滑動頁面以繼續{:else}往下以回到一覽{/if}
+            {:else}
+              <MiddleButtonIcon
+                class="w-[1.125rem] h-[1.125rem] text-lg"
+              />{#if !i}捲動頁面以繼續{:else}往下以回到一覽{/if}
+            {/if}
           </div>
         {:else}
           <div

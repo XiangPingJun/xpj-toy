@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { mode, isMobile, subjectUrl } from "$lib/stores/store";
+  import { isMobile, subjectUrl } from "$lib/stores/store";
   import LeftButtonIcon from "$lib/components/icons/left-button-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
   import RightButtonIcon from "$lib/components/icons/right-button-icon.svelte";

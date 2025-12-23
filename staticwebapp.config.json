@@ -8,12 +8,6 @@
   },
   "routes": [
     {
-      "route": "/static/v/*.mp4",
-      "headers": {
-        "content-type": "video/mp4"
-      }
-    },
-    {
       "route": "/static/*",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
@@ -28,7 +22,6 @@
     ".png": "image/png",
     ".jpg": "image/jpeg",
     ".svg": "image/svg+xml",
-    ".spz": "application/octet-stream",
-    ".mp4": "video/mp4"
+    ".spz": "application/octet-stream"
   }
 }

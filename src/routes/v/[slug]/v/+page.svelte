@@ -24,7 +24,7 @@
 			$resources[$subjectUrl] = await load($subjectUrl);
 		}
 		for (let line of $article.lines) {
-			const { subjectUrl, imgUrl, videoUrl } = line as any;
+			const { subjectUrl, imgUrl } = line as any;
 			if (subjectUrl && $resources[subjectUrl] === undefined) {
 				$resources[subjectUrl] = null;
 				$resources[subjectUrl] = await load(subjectUrl);
@@ -33,19 +33,14 @@
 				$resources[imgUrl] = null;
 				$resources[imgUrl] = await load(imgUrl);
 			}
-			if (videoUrl && $resources[videoUrl] === undefined) {
-				$resources[videoUrl] = null;
-				$resources[videoUrl] = await load(videoUrl);
-			}
 		}
 	});
 
 	onDestroy(() => {
 		URL.revokeObjectURL($resources[$subjectUrl] ?? "");
 		$article.lines.forEach((line: any) => {
-			const { imgUrl, videoUrl } = line;
+			const { imgUrl } = line;
 			URL.revokeObjectURL(imgUrl ?? "");
-			URL.revokeObjectURL(videoUrl ?? "");
 		});
 	});
 

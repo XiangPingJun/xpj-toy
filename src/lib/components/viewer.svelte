@@ -1,7 +1,6 @@
 <script lang="ts">
   import GsViewer from "$lib/components/gs-viewer/gs-viewer.svelte";
   import Hud from "$lib/components/hud/hud.svelte";
-  import Media from "$lib/components/media.svelte";
   import Panorama from "$lib/components/panorama/panorama.svelte";
   import { resources, subjectUrl } from "$lib/stores/store";
 </script>
@@ -29,7 +28,6 @@
   {/key}
   <div class="bg-overlay"></div>
   <Hud />
-  <Media />
 {/if}
 
 <style>

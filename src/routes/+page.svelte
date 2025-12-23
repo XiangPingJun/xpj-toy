@@ -52,7 +52,10 @@
     class={[isPortrait ? "w-screen" : "w-[80vw]"]}
     height="calc(100dvh - 2rem)"
   >
-    <div class="flex justify-center items-center text-2xl mb-2">
+    <div
+      class="flex justify-center items-center text-2xl mb-2"
+      style="font-family: 'LXGW WenKai Mono TC', monospace;"
+    >
       <ListIcon class="w-[2rem] h-[2rem]" />總覽
     </div>
     <div class="flex justify-center items-center flex-wrap">

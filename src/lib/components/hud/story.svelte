@@ -53,24 +53,16 @@
     >
       <div class="content">
         {#if line.title}
-          <h2
-            class={[
-              "font-bold mb-2 tracking-tight text-white",
-              $isMobile ? "text-2xl" : "text-4xl",
-            ]}
-          >
+          <h2 class={["font-bold mb-2 tracking-tight text-white text-2xl"]}>
             {line.title}
           </h2>
         {/if}
-        <div class={["text-slate-200 px-2", !$isMobile && "text-lg"]}>
+        <div class={"text-slate-200 px-2 outlined-text"}>
           {line.text}
         </div>
         {#if !i || i === $article.lines.length - 1}
           <div
-            class={[
-              "mt-4 animate-bounce opacity-50 mb-4 text-slate-400 flex items-center justify-center italic",
-              !$isMobile && "text-lg",
-            ]}
+            class={"mt-4 animate-bounce opacity-50 mb-4 text-slate-300 flex items-center justify-center italic"}
           >
             {#if $isMobile}
               <SwipeUpIcon
@@ -78,7 +70,7 @@
               />{#if !i}滑動頁面以繼續{:else}往下以回到一覽{/if}
             {:else}
               <MiddleButtonIcon
-                class="w-[1.125rem] h-[1.125rem] text-lg"
+                class="w-[1rem] h-[1rem]"
               />{#if !i}捲動頁面以繼續{:else}往下以回到一覽{/if}
             {/if}
           </div>
@@ -138,5 +130,13 @@
   .story-section.is-visible .content {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .outlined-text {
+    text-shadow:
+      -1px -1px 0 var(--color-slate-800),
+      1px -1px 0 var(--color-slate-800),
+      -1px 1px 0 var(--color-slate-800),
+      1px 1px 0 var(--color-slate-800);
   }
 </style>

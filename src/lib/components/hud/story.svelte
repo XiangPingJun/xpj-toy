@@ -53,16 +53,22 @@
     >
       <div class="content">
         {#if line.title}
-          <h2 class={["font-bold mb-2 tracking-tight text-white text-2xl"]}>
+          <h2
+            class="font-bold mb-2 tracking-tight text-white-200 text-3xl outlined-text"
+            style="font-family: 'Chiron Hei HK', sans-serif;"
+          >
             {line.title}
           </h2>
         {/if}
-        <div class={"text-slate-200 px-2 outlined-text"}>
+        <div
+          class={"text-slate-200 px-2 outlined-text"}
+          style="font-family: 'LXGW WenKai Mono TC', monospace;"
+        >
           {line.text}
         </div>
         {#if !i || i === $article.lines.length - 1}
           <div
-            class={"mt-4 animate-bounce opacity-50 mb-4 text-slate-300 flex items-center justify-center italic"}
+            class={"mt-4 animate-bounce mb-4 text-slate-400 flex items-center justify-center italic outlined-text text-lg"}
           >
             {#if $isMobile}
               <SwipeUpIcon
@@ -134,9 +140,13 @@
 
   .outlined-text {
     text-shadow:
-      -1px -1px 0 var(--color-slate-800),
-      1px -1px 0 var(--color-slate-800),
-      -1px 1px 0 var(--color-slate-800),
-      1px 1px 0 var(--color-slate-800);
+      2px 2px 0 rgba(30, 41, 59, 0.25),
+      -2px 2px 0 rgba(30, 41, 59, 0.25),
+      2px -2px 0 rgba(30, 41, 59, 0.25),
+      -2px -2px 0 rgba(30, 41, 59, 0.25),
+      0px 2px 0 rgba(30, 41, 59, 0.25),
+      0px -2px 0 rgba(30, 41, 59, 0.25),
+      2px 0px 0 rgba(30, 41, 59, 0.25),
+      -2px 0px 0 rgba(30, 41, 59, 0.25);
   }
 </style>

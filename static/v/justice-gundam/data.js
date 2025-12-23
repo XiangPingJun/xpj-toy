@@ -1,9 +1,9 @@
-export default {
-  title: '.',
-  description: '.',
-  lines: [{
-    text: '.',
-    pov: '[-0.0317,0.391,-0.2847,-2.7989,185.1939,0,0.2872]',
-    subjectUrl: "justice2.sog",
-  }]
-}
+// export default {
+//   title: '.',
+//   description: '.',
+//   lines: [{
+//     text: '.',
+//     pov: '[-57.43631,46.40345,25.89352,-27.15698,-68.73474,0,70.17331]',
+//     subjectUrl: "justice2.sog",
+//   }]
+// }

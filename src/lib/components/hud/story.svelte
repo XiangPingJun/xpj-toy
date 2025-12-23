@@ -8,11 +8,19 @@
   let observer: IntersectionObserver;
   let container: HTMLElement;
   let sections = $state<HTMLElement[]>([]);
+  let scrollTimeout: ReturnType<typeof setTimeout>;
+
+  function handleScroll() {
+    $scrolling = true;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      $scrolling = false;
+    }, 150);
+  }
 
   onMount(() => {
     observer = new IntersectionObserver(
       (entries) => {
-        $scrolling = true;
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
@@ -22,7 +30,6 @@
             } else {
               window.location.replace("/");
             }
-            $scrolling = false;
           } else {
             entry.target.classList.remove("is-visible");
           }
@@ -30,7 +37,7 @@
       },
       {
         root: container,
-        threshold: 1,
+        threshold: 0.1,
       },
     );
     sections.forEach((section) => observer.observe(section));
@@ -43,6 +50,7 @@
 
 <main
   bind:this={container}
+  onscroll={handleScroll}
   class={[
     "story-container",
     $mode !== "Story" && "opacity-0 pointer-events-none",

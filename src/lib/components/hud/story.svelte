@@ -15,6 +15,7 @@
         $scrolling = true;
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
             const index = Number(entry.target.getAttribute("data-index"));
             if (index < $article.lines.length) {
               $activeLineIndex = index;
@@ -22,6 +23,8 @@
               window.location.replace("/");
             }
             $scrolling = false;
+          } else {
+            entry.target.classList.remove("is-visible");
           }
         });
       },
@@ -54,8 +57,7 @@
       <div class="content">
         {#if line.title}
           <h2
-            class="font-bold mb-2 tracking-tight text-white-200 text-3xl outlined-text"
-            style="font-family: 'Chiron Hei HK', sans-serif;"
+            class="font-bold mb-2 tracking-tight text-slate-100 text-3xl outlined-text"
           >
             {line.title}
           </h2>
@@ -68,16 +70,19 @@
         </div>
         {#if !i || i === $article.lines.length - 1}
           <div
-            class={"mt-4 animate-bounce mb-4 text-slate-400 flex items-center justify-center italic outlined-text text-lg"}
+            class={"mt-4 animate-bounce mb-4 text-slate-400 flex items-center justify-center italic outlined-text opacity-75"}
           >
             {#if $isMobile}
-              <SwipeUpIcon
-                class="w-[1rem] h-[1rem]"
-              />{#if !i}滑動頁面以繼續{:else}往下以回到一覽{/if}
+              <SwipeUpIcon class="w-[1.5rem] h-[1.5rem]" />
             {:else}
-              <MiddleButtonIcon
-                class="w-[1rem] h-[1rem]"
-              />{#if !i}捲動頁面以繼續{:else}往下以回到一覽{/if}
+              <MiddleButtonIcon class="w-[1.5rem] h-[1.5rem]" />
+            {/if}
+            {#if !i}
+              <div class="pr-1">
+                {#if $isMobile}上下滑動{:else}滑鼠滾動{/if}頁面以繼續
+              </div>
+            {:else}
+              往下以回到總覽
             {/if}
           </div>
         {:else}
@@ -96,7 +101,9 @@
     data-index={$article.lines.length}
     class="story-section"
   >
-    <div class="content"></div>
+    <div class="content pb-12">
+      <img src="/loading.svg" alt="" class="w-[1.5rem] h-[1.5rem]" />
+    </div>
   </section>
 </main>
 

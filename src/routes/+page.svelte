@@ -57,35 +57,37 @@
     </div>
     <div class="flex justify-center items-center flex-wrap">
       {#each data as { path, caption }, i}
-        {#if leavingByIndex === null || leavingByIndex === i}
+        <div
+          class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 text-blue-300"
+          onclick={() => {
+            leavingByIndex = i;
+            goto(`/v/${path}/v`);
+          }}
+          onkeydown={() => {}}
+          role="button"
+          tabindex="-1"
+          transition:blur={{ amount: "1rem" }}
+        >
+          <img
+            src={`/v/${path}/og-image.jpg`}
+            class="max-w-[18rem] w-[calc(50vw-2rem)] m-1 inline rounded-md"
+            alt=""
+          />
           <div
-            class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 text-blue-300"
-            onclick={() => {
-              leavingByIndex = i;
-              goto(`/v/${path}/v`);
-            }}
-            onkeydown={() => {}}
-            role="button"
-            tabindex="-1"
-            transition:blur={{ amount: "1rem" }}
+            class="absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
+            style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
           >
-            <img
-              src={`/v/${path}/og-image.jpg`}
-              class="max-w-[18rem] w-[calc(50vw-2rem)] m-1 inline rounded-md"
-              alt=""
-            />
             <div
-              class="absolute bottom-1 left-1 text-sm w-[calc(100%-8px)] caption"
-              style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
+              class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
             >
-              <div
-                class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
-              >
+              {#if leavingByIndex === i}
+                <img src="/loading.svg" alt="" class="w-[1rem] h-[1rem]" />
+              {:else}
                 <CommentIcon class="w-[1rem] h-[1rem] mr-0.5" />{caption}
-              </div>
+              {/if}
             </div>
           </div>
-        {/if}
+        </div>
       {/each}
     </div>
   </Scroller>

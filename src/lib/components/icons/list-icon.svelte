@@ -7,7 +7,7 @@
   width="32"
   height="32"
   viewBox="0 0 32 32"
-  class={["w-[1rem] h-[1rem] inline", props.class]}
+  class={["inline", props.class]}
 >
   <path
     fill="currentColor"

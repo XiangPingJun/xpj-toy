@@ -8,7 +8,6 @@
   $effect(() => {
     (async () => {
       if (!$scrolling && $activeLine?.imgUrl) {
-        await new Promise((r) => setTimeout(r, 750));
         imgUrl = $activeLine.imgUrl;
       } else {
         imgUrl = "";

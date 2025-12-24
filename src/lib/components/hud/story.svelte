@@ -5,7 +5,8 @@
   import SwipeUpIcon from "$lib/components/icons/swipe-up-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
 
-  let observer: IntersectionObserver;
+  let enterObserver: IntersectionObserver;
+  let leaveObserver: IntersectionObserver;
   let container: HTMLElement;
   let sections = $state<HTMLElement[]>([]);
   let scrollTimeout: ReturnType<typeof setTimeout>;
@@ -19,10 +20,11 @@
   }
 
   onMount(() => {
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+    enterObserver = new IntersectionObserver(
+      (entries) =>
+        entries
+          .filter((entry) => entry.isIntersecting)
+          .forEach((entry) => {
             entry.target.classList.add("is-visible");
             const index = Number(entry.target.getAttribute("data-index"));
             if (index < $article.lines.length) {
@@ -30,21 +32,29 @@
             } else {
               window.location.replace("/");
             }
-          } else {
-            entry.target.classList.remove("is-visible");
-          }
-        });
-      },
+          }),
       {
         root: container,
-        threshold: 0.1,
+        threshold: 0.01,
       },
     );
-    sections.forEach((section) => observer.observe(section));
+    leaveObserver = new IntersectionObserver(
+      (entries) =>
+        entries
+          .filter((entry) => !entry.isIntersecting)
+          .forEach((entry) => entry.target.classList.remove("is-visible")),
+      {
+        root: container,
+        threshold: 0.99,
+      },
+    );
+    sections.forEach((section) => enterObserver.observe(section));
+    sections.forEach((section) => leaveObserver.observe(section));
   });
 
   onDestroy(() => {
-    observer.disconnect();
+    enterObserver.disconnect();
+    leaveObserver.disconnect();
   });
 </script>
 
@@ -56,12 +66,11 @@
     $mode !== "Story" && "opacity-0 pointer-events-none",
   ]}
 >
+  <div class="story-section is-visible" style="display: none;">
+    <div class="content"></div>
+  </div>
   {#each $article.lines as line, i}
-    <section
-      bind:this={sections[i]}
-      data-index={i}
-      class={["story-section", i === $activeLineIndex && "is-visible"]}
-    >
+    <section bind:this={sections[i]} data-index={i} class="story-section">
       <div class="content">
         {#if line.title}
           <h2
@@ -125,44 +134,49 @@
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
-  }
 
-  .story-section {
-    height: 100dvh;
-    width: 100%;
-    scroll-snap-align: start;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    overflow: hidden;
-    scroll-snap-stop: always;
-  }
+    .story-section {
+      height: 100dvh;
+      width: 100%;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      scroll-snap-stop: always;
 
-  .content {
-    position: relative;
-    z-index: 10;
-    max-width: 750px;
-    text-align: center;
-    transform: translateY(2rem);
-    white-space: pre-line;
-    opacity: 0;
-    transition: all 0.5s ease;
-  }
+      .content {
+        position: relative;
+        z-index: 10;
+        max-width: 750px;
+        text-align: center;
+        transform: translateY(2rem);
+        white-space: pre-line;
+        opacity: 0;
+        transition:
+          opacity 0.15s ease,
+          transform 0.5s ease;
+      }
 
-  .story-section.is-visible .content {
-    opacity: 1;
-    transform: translateY(0);
-  }
+      &.is-visible .content {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+    }
 
-  .outlined-text {
-    text-shadow:
-      2px 2px 0 rgba(30, 41, 59, 0.25),
-      -2px 2px 0 rgba(30, 41, 59, 0.25),
-      2px -2px 0 rgba(30, 41, 59, 0.25),
-      -2px -2px 0 rgba(30, 41, 59, 0.25),
-      0px 2px 0 rgba(30, 41, 59, 0.25),
-      0px -2px 0 rgba(30, 41, 59, 0.25),
-      2px 0px 0 rgba(30, 41, 59, 0.25),
-      -2px 0px 0 rgba(30, 41, 59, 0.25);
+    .outlined-text {
+      text-shadow:
+        2px 2px 0 rgba(30, 41, 59, 0.25),
+        -2px 2px 0 rgba(30, 41, 59, 0.25),
+        2px -2px 0 rgba(30, 41, 59, 0.25),
+        -2px -2px 0 rgba(30, 41, 59, 0.25),
+        0px 2px 0 rgba(30, 41, 59, 0.25),
+        0px -2px 0 rgba(30, 41, 59, 0.25),
+        2px 0px 0 rgba(30, 41, 59, 0.25),
+        -2px 0px 0 rgba(30, 41, 59, 0.25);
+    }
   }
 </style>

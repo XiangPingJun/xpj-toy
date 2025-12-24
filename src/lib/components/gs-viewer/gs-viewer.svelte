@@ -89,6 +89,10 @@
     camera.addComponent("script");
     camera.script?.create("cameraControls");
     app.root.addChild(camera);
+    camera.script.cameraControls.focusDamping = 0.99;
+    camera.script.cameraControls.moveDamping = 0.99;
+    camera.script.cameraControls.rotateDamping = 0.99;
+    camera.script.cameraControls.zoomDamping = 0.99;
 
     // Create splat entity
     const splat = new pc.Entity("toy");

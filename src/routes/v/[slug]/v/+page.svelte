@@ -62,19 +62,19 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>{`${title}(^ω^)祥平的玩具櫃`}</title>
+	<title>{`${title}📍你還願意看的部落格`}</title>
 	<meta name="description" content={description} />
 
 	<!-- Open Graph Protocol -->
-	<meta property="og:title" content={`${title}(^ω^)祥平的玩具櫃`} />
+	<meta property="og:title" content={`${title}📍你還願意看的部落格`} />
 	<meta property="og:description" content={description} />
 	<meta property="og:image" content="og-image.jpg" />
 	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="(^ω^)祥平的玩具櫃" />
+	<meta property="og:site_name" content="📍你還願意看的部落格" />
 
 	<!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={`${title}(^ω^)祥平的玩具櫃`} />
+	<meta name="twitter:title" content={`${title}📍你還願意看的部落格`} />
 	<meta name="twitter:description" content={description} />
 	<meta name="twitter:image" content="og-image.jpg" />
 </svelte:head>

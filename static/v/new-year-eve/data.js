@@ -1,4 +1,5 @@
 export default {
+  timestamp: 1766546698,
   title: '煙火一瞬 金光萬丈',
   description: '我從不許新年新希望，因為它總是會被延到下一年，然後變成明年的新年新希望。',
   lines: [{

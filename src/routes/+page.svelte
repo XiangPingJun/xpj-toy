@@ -14,14 +14,18 @@
   const ogImage = "og-image.jpg";
 
   const data = $state<{ path: string; caption: string }[]>([]);
-
   let leavingByIndex = $state<number | null>(null);
+  let mounted = $state(false);
 
   onMount(async () => {
-    const allData = Object.entries(articles).map(([path, article]) => ({
-      path,
-      caption: article.title,
-    }));
+    mounted = true;
+    const allData = Object.entries(articles)
+      .map(([path, article]) => ({
+        path,
+        caption: article.title,
+        timestamp: article.timestamp,
+      }))
+      .sort((a, b) => b.timestamp - a.timestamp);
     while (allData.length) {
       data.push(allData.shift() as { path: string; caption: string });
       await new Promise((r) => setTimeout(r, 50));
@@ -52,12 +56,15 @@
     class={[isPortrait ? "w-screen" : "w-[80vw]"]}
     height="calc(100dvh - 2rem)"
   >
-    <div
-      class="flex justify-center items-center text-2xl mb-2"
-      style="font-family: 'LXGW WenKai Mono TC', monospace;"
-    >
-      <ListIcon class="w-[2rem] h-[2rem]" />總覽
-    </div>
+    {#if mounted}
+      <div
+        class="flex justify-center items-center text-2xl mb-2"
+        style="font-family: 'LXGW WenKai Mono TC', monospace;"
+        transition:blur
+      >
+        <ListIcon class="w-[2rem] h-[2rem]" />總覽
+      </div>
+    {/if}
     <div class="flex justify-center items-center flex-wrap">
       {#each data as { path, caption }, i}
         <div

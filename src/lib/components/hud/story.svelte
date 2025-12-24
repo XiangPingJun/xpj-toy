@@ -135,6 +135,7 @@
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
+    scroll-snap-stop: always;
   }
 
   .content {

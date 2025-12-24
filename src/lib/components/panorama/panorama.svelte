@@ -115,11 +115,11 @@
     try {
       await createEnvironmentSphere();
       createScene();
+      handleResize();
+      setTimeout(() => (loaded = true), 100);
       if ($activeLine?.pov) {
         cameraControls.fromJSON($activeLine.pov, true);
       }
-      handleResize();
-      setTimeout(() => (loaded = true), 100);
     } catch (error) {
       console.error("Failed to load panorama:", error);
     }

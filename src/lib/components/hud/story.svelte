@@ -5,8 +5,7 @@
   import SwipeUpIcon from "$lib/components/icons/swipe-up-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
 
-  let enterObserver: IntersectionObserver;
-  let leaveObserver: IntersectionObserver;
+  let observer: IntersectionObserver;
   let container: HTMLElement;
   let sections = $state<HTMLElement[]>([]);
   let scrollTimeout: ReturnType<typeof setTimeout>;
@@ -20,11 +19,10 @@
   }
 
   onMount(() => {
-    enterObserver = new IntersectionObserver(
+    observer = new IntersectionObserver(
       (entries) =>
-        entries
-          .filter((entry) => entry.isIntersecting)
-          .forEach((entry) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             const index = Number(entry.target.getAttribute("data-index"));
             if (index < $article.lines.length) {
@@ -32,29 +30,20 @@
             } else {
               window.location.replace("/");
             }
-          }),
+          } else {
+            entry.target.classList.remove("is-visible");
+          }
+        }),
       {
         root: container,
-        threshold: 0.01,
+        threshold: 0.1,
       },
     );
-    leaveObserver = new IntersectionObserver(
-      (entries) =>
-        entries
-          .filter((entry) => !entry.isIntersecting)
-          .forEach((entry) => entry.target.classList.remove("is-visible")),
-      {
-        root: container,
-        threshold: 0.99,
-      },
-    );
-    sections.forEach((section) => enterObserver.observe(section));
-    sections.forEach((section) => leaveObserver.observe(section));
+    sections.forEach((section) => observer.observe(section));
   });
 
   onDestroy(() => {
-    enterObserver.disconnect();
-    leaveObserver.disconnect();
+    observer.disconnect();
   });
 </script>
 

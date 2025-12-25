@@ -35,5 +35,3 @@ export const isMobile = writable(false);
 export const isPortrait = writable(false);
 
 export const mode = writable<"Story" | "Inspect">("Story");
-
-export const scrolling = writable(false);

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { lines, activeLineIndex } from "$lib/stores/store";
-  import { isMobile, scrolling, mode } from "$lib/stores/store";
+  import { isMobile, mode } from "$lib/stores/store";
   import SwipeIcon from "$lib/components/icons/swipe-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
   import Image from "./image.svelte";
@@ -9,18 +9,9 @@
   let observer: IntersectionObserver;
   let container: HTMLElement;
   let sections = $state<HTMLElement[]>([]);
-  let scrollTimeout: ReturnType<typeof setTimeout>;
 
   let isWheelLocked = false;
   let wheelLockTimeout: ReturnType<typeof setTimeout>;
-
-  function handleScroll() {
-    $scrolling = true;
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      $scrolling = false;
-    }, 150);
-  }
 
   function handleWheel(e: WheelEvent) {
     if (isWheelLocked) {
@@ -61,11 +52,7 @@
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             const index = Number(entry.target.getAttribute("data-index"));
-            if (index < $lines.length) {
-              $activeLineIndex = index;
-            } else {
-              window.location.replace("/");
-            }
+            $activeLineIndex = index;
           } else {
             entry.target.classList.remove("is-visible");
           }
@@ -84,38 +71,27 @@
   });
 </script>
 
-{#snippet scrollHint(isFirst: boolean)}
+{#snippet scrollHint()}
   {#if $isMobile}
     <div
-      class="mb-3 text-slate-400 flex items-center justify-center italic outlined-text opacity-75 h-bounce"
+      class="mb-3 text-slate-300 flex items-center justify-center italic outlined-text-light opacity-75 h-bounce"
     >
-      <SwipeIcon class="w-[1.5rem] h-[1.5rem]" />
-      {#if isFirst}
-        <div class="pr-1">滑動頁面以繼續</div>
-      {:else}
-        繼續滑動以前往總覽頁面
-      {/if}
+      <SwipeIcon class="w-[1.5rem] h-[1.5rem]" />(滑動頁面以繼續)
     </div>
   {:else}
     <div
-      class="mb-2 text-slate-400 flex items-center justify-center italic outlined-text opacity-75 animate-bounce"
+      class="mb-1 text-slate-300 flex items-center justify-center outlined-text-light opacity-75 animate-bounce italic"
     >
-      <MiddleButtonIcon class="w-[1.5rem] h-[1.5rem]" />
-      {#if isFirst}
-        <div class="pr-1">滾動滑鼠以繼續</div>
-      {:else}
-        繼續滑動以前往總覽頁面
-      {/if}
+      <MiddleButtonIcon class="w-[1.5rem] h-[1.5rem]" />(滾動滑鼠以繼續)
     </div>
   {/if}
 {/snippet}
 
 <main
   bind:this={container}
-  onscroll={handleScroll}
   onwheel={handleWheel}
   class={[
-    "story-container",
+    "story-container transition-all",
     $mode !== "Story" && "opacity-0 pointer-events-none",
   ]}
 >
@@ -126,19 +102,18 @@
       class={"story-section px-2 transition-all"}
     >
       <div class="text-center">
-        {#if !i || i === $lines.length - 1}
-          {@render scrollHint(!i)}
+        {#if !i}
+          {@render scrollHint()}
         {/if}
         {#if line.title}
           <h2
-            class="font-bold mb-2 tracking-tight text-slate-100 text-3xl outlined-text"
+            class="font-bold mb-2 tracking-tight text-slate-100 text-3xl outlined-text max-w-[calc(100vw-1rem)]"
           >
             {line.title}
           </h2>
         {/if}
         <div
-          class={"text-slate-200 outlined-text mb-12 whitespace-pre-line"}
-          style="font-family: 'LXGW WenKai Mono TC', monospace;"
+          class={"text-slate-200 outlined-text mb-12 whitespace-pre-line LXGW max-w-[calc(100vw-1rem)]"}
         >
           {line.text}
         </div>
@@ -146,15 +121,6 @@
       <Image imgUrl={line.imgUrl} />
     </section>
   {/each}
-  <section
-    bind:this={sections[$lines.length]}
-    data-index={$lines.length}
-    class="story-section"
-  >
-    <div class="pb-12">
-      <img src="/loading.svg" alt="" class="w-[1.5rem] h-[1.5rem]" />
-    </div>
-  </section>
 </main>
 
 <style>
@@ -195,14 +161,14 @@
 
     .outlined-text {
       text-shadow:
-        2px 2px 0 rgba(30, 41, 59, 0.25),
-        -2px 2px 0 rgba(30, 41, 59, 0.25),
-        2px -2px 0 rgba(30, 41, 59, 0.25),
-        -2px -2px 0 rgba(30, 41, 59, 0.25),
-        0px 2px 0 rgba(30, 41, 59, 0.25),
-        0px -2px 0 rgba(30, 41, 59, 0.25),
-        2px 0px 0 rgba(30, 41, 59, 0.25),
-        -2px 0px 0 rgba(30, 41, 59, 0.25);
+        2px 2px 0 rgba(30, 41, 59, 0.75),
+        -2px 2px 0 rgba(30, 41, 59, 0.75),
+        2px -2px 0 rgba(30, 41, 59, 0.75),
+        -2px -2px 0 rgba(30, 41, 59, 0.75),
+        0px 2px 0 rgba(30, 41, 59, 0.75),
+        0px -2px 0 rgba(30, 41, 59, 0.75),
+        2px 0px 0 rgba(30, 41, 59, 0.75),
+        -2px 0px 0 rgba(30, 41, 59, 0.75);
     }
 
     .h-bounce {

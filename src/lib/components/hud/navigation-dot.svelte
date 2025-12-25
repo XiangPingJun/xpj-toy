@@ -1,23 +1,11 @@
 <script lang="ts">
   import { lines, activeLineIndex, mode } from "$lib/stores/store";
-  import { fade } from "svelte/transition";
 
-  const min = $derived.by(() => {
-    if ($activeLineIndex < 4) {
-      return 0;
-    } else if ($activeLineIndex > $lines.length - 5) {
-      return $lines.length - 9;
-    }
-    return $activeLineIndex - 4;
-  });
-  const max = $derived.by(() => {
-    if ($activeLineIndex < 4) {
-      return 8;
-    } else if ($activeLineIndex > $lines.length - 5) {
-      return $lines.length - 1;
-    }
-    return $activeLineIndex + 4;
-  });
+  const DOT_SIZE = 0.5; // rem
+  const DOT_GAP = 0.75; // rem
+  const DOT_STEP = DOT_SIZE + DOT_GAP;
+
+  const trackOffset = $derived(-$activeLineIndex * DOT_STEP);
 
   function handleDotClick(index: number) {
     $activeLineIndex = index;
@@ -34,29 +22,44 @@
     $mode !== "Story" && "opacity-0 pointer-events-none",
   ]}
 >
-  {#each $lines as _, index}
-    {#if index >= min && index <= max}
-      <button
-        transition:fade
-        class={["dot", $activeLineIndex === index && "active"]}
-        onclick={() => handleDotClick(index)}
-        aria-label=" "
-      ></button>
-    {/if}
-  {/each}
+  <div class="viewport">
+    <div class="track" style="transform: translateX({trackOffset}rem)">
+      {#each $lines as _, index}
+        <button
+          class={["dot", $activeLineIndex === index && "active"]}
+          onclick={() => handleDotClick(index)}
+          aria-label={`Go to slide ${index + 1}`}
+        ></button>
+      {/each}
+    </div>
+  </div>
 </nav>
 
 <style>
   .navigation-dots {
     position: fixed;
-    bottom: 1.5rem;
+    bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
     z-index: 50;
     transition: opacity 0.3s ease;
+  }
+
+  .viewport {
+    position: relative;
+    width: 9rem;
+    height: 1.5rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .track {
+    display: flex;
+    gap: 0.75rem;
+    padding-left: 4.25rem;
+    padding-right: 4.25rem;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .dot {
@@ -66,30 +69,21 @@
     background-color: rgba(255, 255, 255, 0.4);
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    flex-shrink: 0;
     padding: 0;
+    outline: 0.1rem solid transparent;
+    transition:
+      background-color 0.5s,
+      outline-color 0.5s;
   }
 
   .dot:hover {
     background-color: rgba(255, 255, 255, 0.7);
-    transform: scale(1.3);
   }
 
   .dot.active {
-    background-color: rgba(59, 130, 246, 1);
-    transform: scale(1.5);
-    box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
-  }
-
-  @media (max-width: 768px) {
-    .navigation-dots {
-      bottom: 1rem;
-      gap: 0.4rem;
-    }
-
-    .dot {
-      width: 0.4rem;
-      height: 0.4rem;
-    }
+    background-color: var(--color-blue-400);
+    outline: 0.1rem solid var(--color-blue-400);
+    outline-offset: 0.1rem;
   }
 </style>

@@ -58,8 +58,7 @@
   >
     {#if mounted}
       <div
-        class="flex justify-center items-center text-2xl mb-2"
-        style="font-family: 'LXGW WenKai Mono TC', monospace;"
+        class="flex justify-center items-center text-2xl mb-2 LXGW"
         transition:blur
       >
         <ListIcon class="w-[2rem] h-[2rem]" />總覽

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isMobile, subjectUrl } from "$lib/stores/store";
+  import { isMobile, subjectUrl, mode } from "$lib/stores/store";
   import LeftButtonIcon from "$lib/components/icons/left-button-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
   import RightButtonIcon from "$lib/components/icons/right-button-icon.svelte";
@@ -9,7 +9,8 @@
 
 <div
   class={[
-    "fixed top-0 left-0 w-full h-[100dvh] flex items-end justify-center pb-10 pointer-events-none px-2 text-slate-400 italic opacity-75",
+    "fixed top-0 left-0 w-full h-[100dvh] flex items-end justify-center pb-10 pointer-events-none px-2 text-slate-400 italic transition-all",
+    $mode !== "Inspect" && "opacity-0 pointer-events-none",
   ]}
 >
   <div>
@@ -39,8 +40,7 @@
         </span>
       {:else}
         <span class="inline-flex items-center">
-          <LeftButtonIcon class="w-[1.5rem] h-[1.5rem]" />
-          左鍵拖曳旋轉視角
+          <LeftButtonIcon class="w-[1.5rem] h-[1.5rem]" />左鍵拖曳旋轉視角
         </span>
       {/if}
     {/if}

@@ -9,6 +9,7 @@
 	import Viewer from "$lib/components/viewer.svelte";
 
 	$article = (articles as any)[page.params.slug ?? ""] ?? {};
+	$article.lines = [...$article.lines];
 	const { title, description } = $article;
 
 	const load = async (url: string) => {

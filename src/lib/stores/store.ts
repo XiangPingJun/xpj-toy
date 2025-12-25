@@ -1,17 +1,18 @@
 import { writable, derived } from 'svelte/store';
 
 export const article = writable({} as Record<string, any>);
+export const lines = derived(article, ($article) => $article?.lines ?? []);
 export const activeLineIndex = writable(0);
 export const activeLine = derived(
   [article, activeLineIndex],
   ([$article, $activeLineIndex]) => $article.lines[$activeLineIndex],
 );
 export const subjectUrl = derived(
-  [article, activeLineIndex],
-  ([$article, $activeLineIndex]) => {
+  [lines, activeLineIndex],
+  ([$lines, $activeLineIndex]) => {
     for (let i = $activeLineIndex; i >= 0; i--) {
-      if ($article.lines[i].subjectUrl) {
-        return $article.lines[i].subjectUrl;
+      if ($lines[i].subjectUrl) {
+        return $lines[i].subjectUrl;
       }
     }
   },

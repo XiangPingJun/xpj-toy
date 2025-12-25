@@ -1,14 +1,18 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import { article, activeLineIndex } from "$lib/stores/store";
-  import { isPortrait, isMobile, scrolling, mode } from "$lib/stores/store";
-  import SwipeUpIcon from "$lib/components/icons/swipe-up-icon.svelte";
+  import { lines, activeLineIndex } from "$lib/stores/store";
+  import { isMobile, scrolling, mode } from "$lib/stores/store";
+  import SwipeIcon from "$lib/components/icons/swipe-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
+  import Image from "./image.svelte";
 
   let observer: IntersectionObserver;
   let container: HTMLElement;
   let sections = $state<HTMLElement[]>([]);
   let scrollTimeout: ReturnType<typeof setTimeout>;
+
+  let isWheelLocked = false;
+  let wheelLockTimeout: ReturnType<typeof setTimeout>;
 
   function handleScroll() {
     $scrolling = true;
@@ -18,6 +22,38 @@
     }, 150);
   }
 
+  function handleWheel(e: WheelEvent) {
+    if (isWheelLocked) {
+      e.preventDefault();
+      return;
+    }
+
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+
+    if (Math.abs(delta) < 10) return;
+
+    e.preventDefault();
+    isWheelLocked = true;
+
+    const direction = delta > 0 ? 1 : -1;
+    const nextIndex = Math.max(
+      0,
+      Math.min($lines.length, $activeLineIndex + direction),
+    );
+
+    if (nextIndex !== $activeLineIndex && sections[nextIndex]) {
+      sections[nextIndex].scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+      });
+    }
+
+    clearTimeout(wheelLockTimeout);
+    wheelLockTimeout = setTimeout(() => {
+      isWheelLocked = false;
+    }, 750);
+  }
+
   onMount(() => {
     observer = new IntersectionObserver(
       (entries) =>
@@ -25,7 +61,7 @@
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             const index = Number(entry.target.getAttribute("data-index"));
-            if (index < $article.lines.length) {
+            if (index < $lines.length) {
               $activeLineIndex = index;
             } else {
               window.location.replace("/");
@@ -44,23 +80,55 @@
 
   onDestroy(() => {
     observer.disconnect();
+    clearTimeout(wheelLockTimeout);
   });
 </script>
+
+{#snippet scrollHint(isFirst: boolean)}
+  {#if $isMobile}
+    <div
+      class="mb-3 text-slate-400 flex items-center justify-center italic outlined-text opacity-75 h-bounce"
+    >
+      <SwipeIcon class="w-[1.5rem] h-[1.5rem]" />
+      {#if isFirst}
+        <div class="pr-1">滑動頁面以繼續</div>
+      {:else}
+        繼續滑動以前往總覽頁面
+      {/if}
+    </div>
+  {:else}
+    <div
+      class="mb-2 text-slate-400 flex items-center justify-center italic outlined-text opacity-75 animate-bounce"
+    >
+      <MiddleButtonIcon class="w-[1.5rem] h-[1.5rem]" />
+      {#if isFirst}
+        <div class="pr-1">滾動滑鼠以繼續</div>
+      {:else}
+        繼續滑動以前往總覽頁面
+      {/if}
+    </div>
+  {/if}
+{/snippet}
 
 <main
   bind:this={container}
   onscroll={handleScroll}
+  onwheel={handleWheel}
   class={[
     "story-container",
     $mode !== "Story" && "opacity-0 pointer-events-none",
   ]}
 >
-  <div class="story-section is-visible" style="display: none;">
-    <div class="content"></div>
-  </div>
-  {#each $article.lines as line, i}
-    <section bind:this={sections[i]} data-index={i} class="story-section">
-      <div class="content">
+  {#each $lines as line, i}
+    <section
+      bind:this={sections[i]}
+      data-index={i}
+      class={"story-section px-2 transition-all"}
+    >
+      <div class="text-center">
+        {#if !i || i === $lines.length - 1}
+          {@render scrollHint(!i)}
+        {/if}
         {#if line.title}
           <h2
             class="font-bold mb-2 tracking-tight text-slate-100 text-3xl outlined-text"
@@ -69,45 +137,21 @@
           </h2>
         {/if}
         <div
-          class={"text-slate-200 px-2 outlined-text"}
+          class={"text-slate-200 outlined-text mb-12 whitespace-pre-line"}
           style="font-family: 'LXGW WenKai Mono TC', monospace;"
         >
           {line.text}
         </div>
-        {#if !i || i === $article.lines.length - 1}
-          <div
-            class={"mt-4 animate-bounce mb-4 text-slate-400 flex items-center justify-center italic outlined-text opacity-75"}
-          >
-            {#if $isMobile}
-              <SwipeUpIcon class="w-[1.5rem] h-[1.5rem]" />
-            {:else}
-              <MiddleButtonIcon class="w-[1.5rem] h-[1.5rem]" />
-            {/if}
-            {#if !i}
-              <div class="pr-1">
-                {#if $isMobile}上下滑動{:else}滑鼠滾動{/if}頁面以繼續
-              </div>
-            {:else}
-              往下以回到總覽
-            {/if}
-          </div>
-        {:else}
-          <div
-            class={[
-              "w-24 h-0.5 bg-blue-500/50 mx-auto rounded-full",
-              $isPortrait ? "mt-4 mb-6" : "mt-6 mb-8",
-            ]}
-          ></div>
-        {/if}
       </div>
+      <Image imgUrl={line.imgUrl} />
     </section>
   {/each}
   <section
-    bind:this={sections[$article.lines.length]}
-    data-index={$article.lines.length}
+    bind:this={sections[$lines.length]}
+    data-index={$lines.length}
     class="story-section"
   >
-    <div class="content pb-12">
+    <div class="pb-12">
       <img src="/loading.svg" alt="" class="w-[1.5rem] h-[1.5rem]" />
     </div>
   </section>
@@ -120,40 +164,33 @@
     left: 0;
     width: 100vw;
     height: 100dvh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    display: flex;
+    flex-direction: row;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
 
     .story-section {
-      height: 100dvh;
-      width: 100%;
+      min-width: 100vw;
+      max-width: 100vw;
+      min-height: 100dvh;
+      max-height: 100dvh;
+      flex-shrink: 0;
       scroll-snap-align: start;
       display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: space-between;
       overflow: hidden;
       scroll-snap-stop: always;
-
-      .content {
-        position: relative;
-        z-index: 10;
-        max-width: 750px;
-        text-align: center;
-        transform: translateY(2rem);
-        white-space: pre-line;
-        opacity: 0;
-        transition:
-          opacity 0.15s ease,
-          transform 0.5s ease;
-      }
-
-      &.is-visible .content {
-        opacity: 1;
-        transform: translateY(0);
-        transition:
-          opacity 0.5s ease,
-          transform 0.5s ease;
-      }
+      max-width: 750px;
     }
 
     .outlined-text {
@@ -166,6 +203,22 @@
         0px -2px 0 rgba(30, 41, 59, 0.25),
         2px 0px 0 rgba(30, 41, 59, 0.25),
         -2px 0px 0 rgba(30, 41, 59, 0.25);
+    }
+
+    .h-bounce {
+      animation: h-bounce 1s infinite;
+    }
+  }
+
+  @keyframes h-bounce {
+    0%,
+    100% {
+      transform: translateX(-1%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
   }
 </style>

@@ -5,7 +5,7 @@
 	import { browser } from "$app/environment";
 	import { page } from "$app/state";
 	import articles from "$lib/articles";
-	import { resources, subjectUrl, article } from "$lib/stores/store";
+	import { resources, subjectUrl, article, lines } from "$lib/stores/store";
 	import Viewer from "$lib/components/viewer.svelte";
 
 	$article = (articles as any)[page.params.slug ?? ""] ?? {};
@@ -18,12 +18,17 @@
 		return URL.createObjectURL(new Blob([buffer]));
 	};
 
+	let resizing = $state(false);
+	let resizeTimeout: ReturnType<typeof setTimeout>;
+
 	onMount(async () => {
+		if (!browser) return;
+
 		if ($subjectUrl && $resources[$subjectUrl] === undefined) {
 			$resources[$subjectUrl] = null;
 			$resources[$subjectUrl] = await load($subjectUrl);
 		}
-		for (let line of $article.lines) {
+		for (let line of $lines) {
 			const { subjectUrl, imgUrl } = line as any;
 			if (subjectUrl && $resources[subjectUrl] === undefined) {
 				$resources[subjectUrl] = null;
@@ -34,21 +39,6 @@
 				$resources[imgUrl] = await load(imgUrl);
 			}
 		}
-	});
-
-	onDestroy(() => {
-		URL.revokeObjectURL($resources[$subjectUrl] ?? "");
-		$article.lines.forEach((line: any) => {
-			const { imgUrl } = line;
-			URL.revokeObjectURL(imgUrl ?? "");
-		});
-	});
-
-	let resizing = $state(false);
-	let resizeTimeout: ReturnType<typeof setTimeout>;
-
-	onMount(() => {
-		if (!browser) return;
 
 		window?.addEventListener("resize", () => {
 			resizing = true;
@@ -56,6 +46,14 @@
 			resizeTimeout = setTimeout(() => {
 				resizing = false;
 			}, 750);
+		});
+	});
+
+	onDestroy(() => {
+		URL.revokeObjectURL($resources[$subjectUrl] ?? "");
+		$lines.forEach((line: any) => {
+			const { imgUrl } = line;
+			URL.revokeObjectURL(imgUrl ?? "");
 		});
 	});
 </script>

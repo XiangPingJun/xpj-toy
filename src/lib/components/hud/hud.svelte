@@ -10,10 +10,10 @@
   <Story />
   <NavigationDot />
   <button
-    class="text-blue-400 fixed flex items-center cursor-pointer hover:text-blue-300 bottom-4 left-1/2 transform -translate-x-1/2 pl-48"
+    class="text-blue-400 fixed flex items-center cursor-pointer hover:text-blue-300 bottom-4.5 left-4 text-sm"
     onclick={() => ($mode = "Inspect")}
   >
-    <EyeIcon class="w-[1.5rem] h-[1.5rem] mr-0.5" />
+    <EyeIcon class="w-[1.125rem] h-[1.125rem] mt-0.5 mr-0.5" />檢視
   </button>
 </div>
 <div class={[$mode !== "Inspect" && "opacity-0 pointer-events-none"]}>

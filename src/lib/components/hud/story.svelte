@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import { lines, activeLineIndex } from "$lib/stores/store";
   import { isMobile, mode } from "$lib/stores/store";
-  import SwipeIcon from "$lib/components/icons/swipe-icon.svelte";
+  import SwipeLeftIcon from "$lib/components/icons/swipe-left-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
   import Image from "./image.svelte";
 
@@ -76,7 +76,7 @@
     <div
       class="mb-3 text-slate-300 flex items-center justify-center italic outlined-text-light opacity-75 h-bounce"
     >
-      <SwipeIcon class="w-[1.5rem] h-[1.5rem]" />(滑動頁面以繼續)
+      <SwipeLeftIcon class="w-[1.5rem] h-[1.5rem]" />(左滑以繼續)
     </div>
   {:else}
     <div
@@ -113,7 +113,7 @@
           </h2>
         {/if}
         <div
-          class={"text-slate-200 outlined-text mb-12 whitespace-pre-line LXGW max-w-[calc(100vw-1rem)]"}
+          class="text-slate-200 outlined-text mb-12 whitespace-pre-line LXGW max-w-[calc(100vw-1rem)]"
         >
           {line.text}
         </div>
@@ -179,7 +179,7 @@
   @keyframes h-bounce {
     0%,
     100% {
-      transform: translateX(-1%);
+      transform: translateX(0.25rem);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
     50% {

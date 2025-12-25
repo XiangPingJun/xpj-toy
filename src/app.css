@@ -18,7 +18,7 @@
 
 html,
 body {
-  touch-action: pan-y;
+  touch-action: none;
 }
 
 @media (min-width: 768px) {

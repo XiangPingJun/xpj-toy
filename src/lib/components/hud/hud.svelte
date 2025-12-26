@@ -29,5 +29,5 @@
   <InspectInstruct />
 </div>
 <Btn class="fixed top-2 right-2" onclick={() => window.location.assign("/")}>
-  <ListIcon class="w-[1rem] h-[1rem] mr-0.5" />回到總覽
+  <ListIcon class="w-[1rem] h-[1rem] mr-0.5" />回到目錄
 </Btn>

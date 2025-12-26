@@ -57,7 +57,7 @@
         class="flex justify-center items-center text-2xl mb-2 mochiy-pop-p-one"
         transition:blur
       >
-        <ListIcon class="w-[2rem] h-[2rem] mt-1" />總覽
+        <ListIcon class="w-[2rem] h-[2rem] mt-1" />目錄
       </div>
     {/if}
     <div class="flex justify-center items-center flex-wrap">

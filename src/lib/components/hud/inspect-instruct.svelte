@@ -9,7 +9,7 @@
 
 <div
   class={[
-    "fixed top-0 left-0 w-full h-[100dvh] flex items-end justify-center pb-10 pointer-events-none px-2 text-slate-400 italic transition-all",
+    "fixed top-0 left-0 w-full h-[100dvh] flex items-end justify-center pb-8 pointer-events-none px-2 text-slate-400 italic transition-all",
     $mode !== "Inspect" && "opacity-0 pointer-events-none",
   ]}
 >

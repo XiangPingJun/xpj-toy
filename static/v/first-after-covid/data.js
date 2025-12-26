@@ -29,8 +29,7 @@ export default {
     text: '「這藍天，比在台灣的要更深邃呢。」你指著相片，聲音裡帶著些訝異。\n我微微點頭，心裡卻想著那或許不是天的顏色，而是我們彼此心境的倒影。',
     pov: '{"enabled":true,"minDistance":2.220446049250313e-16,"maxDistance":1.7976931348623157e+308,"minZoom":0.01,"maxZoom":1.7976931348623157e+308,"minPolarAngle":0,"maxPolarAngle":3.141592653589793,"minAzimuthAngle":-1.7976931348623157e+308,"maxAzimuthAngle":1.7976931348623157e+308,"smoothTime":0.04,"draggingSmoothTime":0.125,"dollySpeed":1,"truckSpeed":2,"dollyToCursor":false,"verticalDragToForward":false,"target":[-162.86760485544522,-63.992225879210366,-47.90980769833772],"position":[-172.02504693072382,-83.40325145219553,-44.050044623740874],"zoom":0.5300000000000001,"focalOffset":[0,0,0],"target0":[0,0,0],"position0":[24.056042195026553,499.41928876495376,-1.2964734547150627],"zoom0":0.15000000000000002,"focalOffset0":[0,0,0]}',
   }, {
-    title: '「能忍受我反覆地擺弄器材嗎？」',
-    text: '我輕笑著說著，雙手一邊擺弄著包包。',
+    text: '「能忍受我反覆地擺弄器材嗎？」\n我輕笑著說著，雙手一邊擺弄著包包。',
     pov: '{"enabled":true,"minDistance":2.220446049250313e-16,"maxDistance":1.7976931348623157e+308,"minZoom":0.01,"maxZoom":1.7976931348623157e+308,"minPolarAngle":0,"maxPolarAngle":3.141592653589793,"minAzimuthAngle":-1.7976931348623157e+308,"maxAzimuthAngle":1.7976931348623157e+308,"smoothTime":0.04,"draggingSmoothTime":0.125,"dollySpeed":1,"truckSpeed":2,"dollyToCursor":false,"verticalDragToForward":false,"target":[-162.86760485544522,-63.992225879210366,-47.90980769833772],"position":[-95.83556136930281,-40.638248056860846,-60.96043206537016],"zoom":0.39,"focalOffset":[0,0,0],"target0":[0,0,0],"position0":[24.056042195026553,499.41928876495376,-1.2964734547150627],"zoom0":0.15000000000000002,"focalOffset0":[0,0,0]}',
   }, {
     text: '「不，你真的搞太久了」。\n你也笑了，像是要將那一天的輕快，牢牢鎖在回憶裡。',

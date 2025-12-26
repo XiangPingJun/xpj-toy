@@ -18,7 +18,7 @@
     switch (e.key) {
       case "ArrowRight":
       case "PageDown":
-        nextIndex = Math.min($lines.length - 1, $activeLineIndex + 1);
+        nextIndex = Math.min($lines.length, $activeLineIndex + 1);
         break;
       case "ArrowLeft":
       case "PageUp":
@@ -35,7 +35,6 @@
 
   function handleWheel(e: WheelEvent) {
     if (isWheelLocked) {
-      e.preventDefault();
       return;
     }
 
@@ -72,7 +71,11 @@
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             const index = Number(entry.target.getAttribute("data-index"));
-            $activeLineIndex = index;
+            if (index < $lines.length) {
+              $activeLineIndex = index;
+            } else {
+              window.location.assign("/");
+            }
           } else {
             entry.target.classList.remove("is-visible");
           }
@@ -130,7 +133,7 @@
       data-index={i}
       class="story-section px-2 transition-all"
     >
-      <div class="text-center">
+      <div class="text-center pb-12">
         {#if !i}
           {@render scrollHint()}
         {/if}
@@ -142,16 +145,28 @@
           </h2>
         {/if}
         <div
-          class="text-slate-200 outlined-text mb-12 whitespace-pre-line max-w-[calc(100vw-1rem)]"
+          class="text-slate-200 outlined-text whitespace-pre-line max-w-[calc(100vw-1rem)]"
         >
           {line.text}
         </div>
+        {#if i === $lines.length - 1}
+          <div
+            class="text-slate-400 inline-flex items-center justify-center outlined-text-light italic backdrop-blur-xs edge-feather py-0.5 px-1 text-xs"
+          >
+            (→下一頁將回到目錄)
+          </div>
+        {/if}
       </div>
       {#if line.imgUrl}
         <Image imgUrl={line.imgUrl} />
       {/if}
     </section>
   {/each}
+  <section
+    bind:this={sections[$lines.length]}
+    data-index={$lines.length}
+    class="story-section px-2 transition-all"
+  ></section>
 </div>
 
 <style>

@@ -99,7 +99,7 @@
     <section
       bind:this={sections[i]}
       data-index={i}
-      class={"story-section px-2 transition-all"}
+      class="story-section px-2 transition-all"
     >
       <div class="text-center">
         {#if !i}
@@ -107,7 +107,7 @@
         {/if}
         {#if line.title}
           <h2
-            class="font-bold mb-2 tracking-tight text-slate-100 text-3xl outlined-text max-w-[calc(100vw-1rem)]"
+            class="font-bold p-1 tracking-tight text-slate-100 text-3xl outlined-text max-w-[calc(100vw-1rem)]"
           >
             {line.title}
           </h2>
@@ -118,7 +118,9 @@
           {line.text}
         </div>
       </div>
-      <Image imgUrl={line.imgUrl} />
+      {#if line.imgUrl}
+        <Image imgUrl={line.imgUrl} />
+      {/if}
     </section>
   {/each}
 </main>
@@ -157,6 +159,8 @@
       overflow: hidden;
       scroll-snap-stop: always;
       max-width: 750px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
     }
 
     .outlined-text {

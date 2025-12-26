@@ -87,7 +87,7 @@
             style="background: linear-gradient(#0000 0%, #0009 25%, #000A 50%, #0009 100%); padding: 1rem .5rem .25rem 1rem;"
           >
             <div
-              class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur-sm blur-bg"
+              class="w-full text-nowrap overflow-hidden text-ellipsis backdrop-blur edge-feather"
             >
               {#if leavingByIndex === i}
                 <img src="/loading.svg" alt="" class="w-[1rem] h-[1rem]" />

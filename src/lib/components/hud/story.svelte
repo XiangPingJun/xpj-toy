@@ -13,6 +13,26 @@
   let isWheelLocked = false;
   let wheelLockTimeout: ReturnType<typeof setTimeout>;
 
+  function handleKeydown(e: KeyboardEvent) {
+    let nextIndex: number;
+    switch (e.key) {
+      case "ArrowRight":
+      case "PageDown":
+        nextIndex = Math.min($lines.length - 1, $activeLineIndex + 1);
+        break;
+      case "ArrowLeft":
+      case "PageUp":
+        nextIndex = Math.max(0, $activeLineIndex - 1);
+        break;
+      default:
+        return;
+    }
+    sections[nextIndex]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "start",
+    });
+  }
+
   function handleWheel(e: WheelEvent) {
     if (isWheelLocked) {
       e.preventDefault();
@@ -33,7 +53,7 @@
     );
 
     if (nextIndex !== $activeLineIndex && sections[nextIndex]) {
-      sections[nextIndex].scrollIntoView({
+      sections[nextIndex]?.scrollIntoView({
         behavior: "smooth",
         inline: "start",
       });
@@ -63,33 +83,42 @@
       },
     );
     sections.forEach((section) => observer.observe(section));
+
+    document.body.addEventListener("wheel", (e) => {
+      if ($mode !== "Story") {
+        return;
+      }
+      handleWheel(e);
+    });
+    document.body.addEventListener("keydown", handleKeydown);
   });
 
   onDestroy(() => {
     observer.disconnect();
     clearTimeout(wheelLockTimeout);
+    document.body.removeEventListener("wheel", handleWheel);
+    document.body.removeEventListener("keydown", handleKeydown);
   });
 </script>
 
 {#snippet scrollHint()}
   {#if $isMobile}
     <div
-      class="mb-3 text-slate-300 flex items-center justify-center italic outlined-text-light opacity-75 h-bounce"
+      class="mb-1 text-slate-400 inline-flex items-center justify-center italic outlined-text-light h-bounce backdrop-blur-xs edge-feather py-0.5 px-1"
     >
       <SwipeLeftIcon class="w-[1.5rem] h-[1.5rem]" />(左滑以繼續)
     </div>
   {:else}
     <div
-      class="mb-1 text-slate-300 flex items-center justify-center outlined-text-light opacity-75 animate-bounce italic"
+      class="text-slate-400 inline-flex items-center justify-center outlined-text-light animate-bounce italic backdrop-blur-xs edge-feather py-0.5 px-1"
     >
       <MiddleButtonIcon class="w-[1.5rem] h-[1.5rem]" />(滾動滑鼠以繼續)
     </div>
   {/if}
 {/snippet}
 
-<main
+<div
   bind:this={container}
-  onwheel={handleWheel}
   class={[
     "story-container transition-all",
     $mode !== "Story" && "opacity-0 pointer-events-none",
@@ -107,13 +136,13 @@
         {/if}
         {#if line.title}
           <h2
-            class="font-bold p-1 tracking-tight text-slate-100 text-3xl outlined-text max-w-[calc(100vw-1rem)]"
+            class="pb-1.5 px-1 text-slate-100 text-3xl outlined-text max-w-[calc(100vw-1rem)] mochiy-pop-p-one"
           >
             {line.title}
           </h2>
         {/if}
         <div
-          class="text-slate-200 outlined-text mb-12 whitespace-pre-line LXGW max-w-[calc(100vw-1rem)]"
+          class="text-slate-200 outlined-text mb-12 whitespace-pre-line max-w-[calc(100vw-1rem)]"
         >
           {line.text}
         </div>
@@ -123,7 +152,7 @@
       {/if}
     </section>
   {/each}
-</main>
+</div>
 
 <style>
   .story-container {

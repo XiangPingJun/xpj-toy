@@ -6,7 +6,7 @@
   import ListIcon from "$lib/components/icons/list-icon.svelte";
   import NavigationDot from "./navigation-dot.svelte";
   import Btn from "./btn.svelte";
-  import { mode } from "$lib/stores/store";
+  import { mode, activeLineTrigger } from "$lib/stores/store";
 </script>
 
 <div class={[$mode !== "Story" && "opacity-0 pointer-events-none"]}>
@@ -17,7 +17,13 @@
   </Btn>
 </div>
 <div class={[$mode !== "Inspect" && "opacity-0 pointer-events-none"]}>
-  <Btn class="fixed top-2 left-2" onclick={() => ($mode = "Story")}>
+  <Btn
+    class="fixed top-2 left-2"
+    onclick={() => {
+      $mode = "Story";
+      $activeLineTrigger = $activeLineTrigger + 1;
+    }}
+  >
     <CommentIcon class="w-[1rem] h-[1rem] mr-0.5" />回到內文
   </Btn>
   <InspectInstruct />

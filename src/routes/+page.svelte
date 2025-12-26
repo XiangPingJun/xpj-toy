@@ -1,6 +1,5 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import Scroller from "$lib/components/scroller/scroller.svelte";
   import { blur } from "svelte/transition";
   import articles from "$lib/articles";
   import { onMount } from "svelte";
@@ -51,23 +50,20 @@
   <meta name="twitter:image" content={ogImage} />
 </svelte:head>
 
-<div class="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-  <Scroller
-    class={[isPortrait ? "w-screen" : "w-[80vw]"]}
-    height="calc(100dvh - 2rem)"
-  >
+<div class="fixed left-1/2 -translate-x-1/2 top-2">
+  <div class={[isPortrait ? "w-screen" : "w-[80vw]"]}>
     {#if mounted}
       <div
-        class="flex justify-center items-center text-2xl mb-2 LXGW"
+        class="flex justify-center items-center text-2xl mb-2 mochiy-pop-p-one"
         transition:blur
       >
-        <ListIcon class="w-[2rem] h-[2rem]" />總覽
+        <ListIcon class="w-[2rem] h-[2rem] mt-1" />總覽
       </div>
     {/if}
     <div class="flex justify-center items-center flex-wrap">
       {#each data as { path, caption }, i}
         <div
-          class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-0.5 text-blue-300"
+          class="relative inline-block cursor-pointer transition-all duration-500 hover:-translate-y-1 text-blue-300"
           onclick={() => {
             leavingByIndex = i;
             goto(`/v/${path}/v`);
@@ -79,7 +75,7 @@
         >
           <img
             src={`/v/${path}/og-image.jpg`}
-            class="max-w-[18rem] w-[calc(50vw-2rem)] m-1 inline rounded-md"
+            class="max-w-[12rem] w-[calc(50vw-2rem)] m-1 inline rounded-md"
             alt=""
           />
           <div
@@ -98,8 +94,17 @@
           </div>
         </div>
       {/each}
+      {#if data.length % 2 && $isPortrait}
+        <div class="relative inline-block">
+          <img
+            src={`/og-image.jpg`}
+            class="max-w-[12rem] w-[calc(50vw-2rem)] m-1 inline rounded-md invisible"
+            alt=""
+          />
+        </div>
+      {/if}
     </div>
-  </Scroller>
+  </div>
 </div>
 
 <style>

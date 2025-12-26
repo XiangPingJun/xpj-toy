@@ -3,14 +3,25 @@ import { writable, derived } from 'svelte/store';
 export const article = writable({} as Record<string, any>);
 export const lines = derived(article, ($article) => $article?.lines ?? []);
 export const activeLineIndex = writable(0);
+export const activeLineTrigger = writable(0);
 export const activeLine = derived(
-  [article, activeLineIndex],
+  [article, activeLineIndex, activeLineTrigger],
   ([$article, $activeLineIndex]) => $article.lines[$activeLineIndex],
 );
 export const subjectUrl = derived(
   [lines, activeLineIndex],
   ([$lines, $activeLineIndex]) => {
     for (let i = $activeLineIndex; i >= 0; i--) {
+      if ($lines[i].subjectUrl) {
+        return $lines[i].subjectUrl;
+      }
+    }
+  },
+);
+export const nextSubjectUrl = derived(
+  [lines, activeLineIndex],
+  ([$lines, $activeLineIndex]) => {
+    for (let i = $activeLineIndex + 1; i < $lines.length; i++) {
       if ($lines[i].subjectUrl) {
         return $lines[i].subjectUrl;
       }

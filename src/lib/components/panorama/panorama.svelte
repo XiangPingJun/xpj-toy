@@ -13,7 +13,6 @@
   let zoom = 1;
   let width = $state(800);
   let height = $state(600);
-  let loaded = $state(false);
 
   // THREE.js objects
   let scene: THREE.Scene;
@@ -116,7 +115,6 @@
       await createEnvironmentSphere();
       createScene();
       handleResize();
-      setTimeout(() => (loaded = true), 100);
       if ($activeLine?.pov) {
         cameraControls.fromJSON($activeLine.pov, true);
       }
@@ -195,7 +193,6 @@
     "panorama-container w-100vw h-100dvh fixed z--1",
     $mode === "Inspect" ? "cursor-grab" : "pointer-events-none",
   ]}
-  class:loaded
   bind:this={container}
 >
   <canvas
@@ -209,13 +206,7 @@
 
 <style>
   .panorama-container {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
     animation: breathe 30s ease-in-out infinite;
-  }
-
-  .panorama-container.loaded {
-    opacity: 1;
   }
 
   @keyframes breathe {

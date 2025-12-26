@@ -3,6 +3,7 @@
   import Hud from "$lib/components/hud/hud.svelte";
   import Panorama from "$lib/components/panorama/panorama.svelte";
   import { resources, subjectUrl } from "$lib/stores/store";
+  import { fade } from "svelte/transition";
 </script>
 
 {#snippet loading()}
@@ -20,11 +21,13 @@
   {@render loading()}
 {:else}
   {#key $subjectUrl}
-    {#if $subjectUrl.endsWith(".sog")}
-      <GsViewer />
-    {:else}
-      <Panorama />
-    {/if}
+    <div transition:fade>
+      {#if $subjectUrl.endsWith(".sog")}
+        <GsViewer />
+      {:else}
+        <Panorama />
+      {/if}
+    </div>
   {/key}
   <div class="bg-overlay"></div>
   <Hud />

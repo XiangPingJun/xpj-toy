@@ -4,6 +4,7 @@
   import { isMobile, mode } from "$lib/stores/store";
   import SwipeLeftIcon from "$lib/components/icons/swipe-left-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
+  import ListIcon from "$lib/components/icons/list-icon.svelte";
   import Image from "./image.svelte";
 
   let observer: IntersectionObserver;
@@ -109,7 +110,7 @@
     <div
       class="mb-1 text-slate-400 inline-flex items-center justify-center italic outlined-text-light h-bounce backdrop-blur-xs edge-feather py-0.5 px-1"
     >
-      <SwipeLeftIcon class="w-[1.5rem] h-[1.5rem]" />(左滑以繼續)
+      <SwipeLeftIcon class="w-[1.5rem] h-[1.5rem]" />(←左滑以繼續)
     </div>
   {:else}
     <div
@@ -153,7 +154,7 @@
           <div
             class="text-slate-400 inline-flex items-center justify-center outlined-text-light italic backdrop-blur-xs edge-feather py-0.5 px-1 text-xs"
           >
-            (→下一頁將回到目錄)
+            (↩下一頁將回到目錄)
           </div>
         {/if}
       </div>

@@ -43,6 +43,7 @@
     transform: translateX(-50%);
     z-index: 50;
     transition: opacity 0.3s ease;
+    opacity: 0.8;
   }
 
   .viewport {

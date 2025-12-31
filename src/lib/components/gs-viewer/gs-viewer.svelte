@@ -68,7 +68,7 @@
 
     // Resize handler
     handleResize = () => canvas && app.resizeCanvas();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: false });
 
     // Load assets
     const assets = [

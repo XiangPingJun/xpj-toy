@@ -43,8 +43,8 @@
     background: linear-gradient(
       to bottom,
       rgba(15, 23, 42, 0) 60%,
-      rgba(15, 23, 42, 0.6) 80%,
-      rgba(15, 23, 42, 0.8) 100%
+      rgba(15, 23, 42, 0.65) 80%,
+      rgba(15, 23, 42, 0.65) 100%
     );
     transition: opacity 0.5s ease;
     pointer-events: none;

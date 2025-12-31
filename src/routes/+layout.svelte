@@ -21,7 +21,7 @@
 		};
 
 		updateOrientation();
-		window.addEventListener("resize", updateOrientation);
+		window.addEventListener("resize", updateOrientation, { passive: false });
 
 		return () => {
 			window.removeEventListener("resize", updateOrientation);

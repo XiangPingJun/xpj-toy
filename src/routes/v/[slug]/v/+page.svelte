@@ -41,13 +41,17 @@
 			}
 		}
 
-		window?.addEventListener("resize", () => {
-			resizing = true;
-			clearTimeout(resizeTimeout);
-			resizeTimeout = setTimeout(() => {
-				resizing = false;
-			}, 750);
-		});
+		window?.addEventListener(
+			"resize",
+			() => {
+				resizing = true;
+				clearTimeout(resizeTimeout);
+				resizeTimeout = setTimeout(() => {
+					resizing = false;
+				}, 750);
+			},
+			{ passive: false },
+		);
 	});
 
 	onDestroy(() => {

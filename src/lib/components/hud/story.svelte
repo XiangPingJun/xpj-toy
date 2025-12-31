@@ -88,13 +88,19 @@
     );
     sections.forEach((section) => observer.observe(section));
 
-    document.body.addEventListener("wheel", (e) => {
-      if ($mode !== "Story") {
-        return;
-      }
-      handleWheel(e);
+    document.body.addEventListener(
+      "wheel",
+      (e) => {
+        if ($mode !== "Story") {
+          return;
+        }
+        handleWheel(e);
+      },
+      { passive: false },
+    );
+    document.body.addEventListener("keydown", handleKeydown, {
+      passive: false,
     });
-    document.body.addEventListener("keydown", handleKeydown);
   });
 
   onDestroy(() => {

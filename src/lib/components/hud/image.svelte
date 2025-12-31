@@ -11,7 +11,7 @@
     {#if $resources[imgUrl]}
       <img
         src={$resources[imgUrl]}
-        class="max-w-[min(1360px,calc(100vw-2.5rem))] object-cover backdrop-blur edge-feather max-h-[calc(100dvh-16rem)]"
+        class="max-w-[min(1360px,calc(100vw-2.5rem))] object-cover backdrop-blur edge-feather max-h-[calc(100dvh-12rem)]"
         alt=""
       />
     {:else}

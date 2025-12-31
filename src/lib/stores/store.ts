@@ -12,7 +12,7 @@ export const subjectUrl = derived(
   [lines, activeLineIndex],
   ([$lines, $activeLineIndex]) => {
     for (let i = $activeLineIndex; i >= 0; i--) {
-      if ($lines[i].subjectUrl) {
+      if ($lines[i]?.subjectUrl) {
         return $lines[i].subjectUrl;
       }
     }

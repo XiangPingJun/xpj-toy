@@ -4,7 +4,7 @@
   import { isMobile, mode } from "$lib/stores/store";
   import SwipeLeftIcon from "$lib/components/icons/swipe-left-icon.svelte";
   import MiddleButtonIcon from "$lib/components/icons/wheel-icon.svelte";
-  import ListIcon from "$lib/components/icons/list-icon.svelte";
+  import Btn from "./btn.svelte";
   import Image from "./image.svelte";
 
   let observer: IntersectionObserver;
@@ -71,12 +71,7 @@
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
-            const index = Number(entry.target.getAttribute("data-index"));
-            if (index < $lines.length) {
-              $activeLineIndex = index;
-            } else {
-              window.location.assign("/");
-            }
+            $activeLineIndex = Number(entry.target.getAttribute("data-index"));
           } else {
             entry.target.classList.remove("is-visible");
           }
@@ -157,11 +152,7 @@
           {line.text}
         </div>
         {#if i === $lines.length - 1}
-          <div
-            class="text-slate-400 inline-flex items-center justify-center outlined-text-light italic backdrop-blur-xs edge-feather py-0.5 px-1 text-xs"
-          >
-            (↩下一頁將回到目錄)
-          </div>
+          <Btn onclick={() => window.location.assign("/")}>(↩ 返回目錄)</Btn>
         {/if}
       </div>
       {#if line.imgUrl}
@@ -169,11 +160,6 @@
       {/if}
     </section>
   {/each}
-  <section
-    bind:this={sections[$lines.length]}
-    data-index={$lines.length}
-    class="story-section px-2 transition-all"
-  ></section>
 </div>
 
 <style>

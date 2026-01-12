@@ -152,7 +152,9 @@
           {line.text}
         </div>
         {#if i === $lines.length - 1}
-          <Btn onclick={() => window.location.assign("/")}>(↩ 返回目錄)</Btn>
+          <Btn class="mt-1" onclick={() => window.location.assign("/")}
+            >(↩ 返回目錄)</Btn
+          >
         {/if}
       </div>
       {#if line.imgUrl}

@@ -207,17 +207,13 @@
     onwheel={onWheel}
     class={[
       "panorama-canvas w-full h-[100dvh] transition-all",
-      !$activeLineIndex && "blur-sm brightness-50",
+      !$activeLineIndex && "blur-sm brightness-60",
       props.class,
     ]}
   ></canvas>
 </div>
 
 <style>
-  canvas {
-    transition: all;
-  }
-
   .panorama-container {
     animation: breathe 30s ease-in-out infinite;
   }

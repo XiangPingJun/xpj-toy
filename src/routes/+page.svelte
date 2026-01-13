@@ -7,7 +7,7 @@
   import ListIcon from "$lib/components/icons/list-icon.svelte";
   import CommentIcon from "$lib/components/icons/comment-icon.svelte";
 
-  export const title = "📍你還願意看的部落格";
+  export const title = "📍你還願意看部落格嗎?";
   const description =
     "從迪士尼到寶塚大劇場、從台北跨年到渋谷清真寺。從看不到的角落，撿回日常裡被磨掉的心動。";
   const ogImage = "og-image.jpg";
@@ -37,11 +37,11 @@
   <meta name="description" content={description} />
 
   <!-- Open Graph Protocol -->
-  <meta property="og:title" content="📍你還願意看的部落格" />
+  <meta property="og:title" content="📍你還願意看部落格嗎?" />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={ogImage} />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="📍你還願意看的部落格" />
+  <meta property="og:site_name" content="📍你還願意看部落格嗎?" />
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image" />

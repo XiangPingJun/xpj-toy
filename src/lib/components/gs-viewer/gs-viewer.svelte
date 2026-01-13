@@ -2,7 +2,12 @@
   import { onMount, onDestroy } from "svelte";
   import * as pc from "playcanvas";
   import { CameraControls } from "./gs-camera-controls.js";
-  import { subjectUrl, activeLine, mode } from "$lib/stores/store";
+  import {
+    subjectUrl,
+    activeLine,
+    mode,
+    activeLineIndex,
+  } from "$lib/stores/store";
 
   const props = $props();
 
@@ -120,8 +125,9 @@
 <canvas
   bind:this={canvas}
   class={[
-    "w-full h-[100dvh]",
+    "w-full h-[100dvh] transition-all",
     $mode === "Story" ? "pointer-events-none" : "cursor-grab",
+    !$activeLineIndex && "blur-sm brightness-50",
     props.class,
   ]}
 ></canvas>

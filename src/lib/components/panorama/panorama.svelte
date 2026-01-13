@@ -2,7 +2,12 @@
   import { onMount, onDestroy } from "svelte";
   import * as THREE from "three";
   import CameraControls from "camera-controls";
-  import { activeLine, subjectUrl, mode } from "$lib/stores/store";
+  import {
+    activeLine,
+    subjectUrl,
+    mode,
+    activeLineIndex,
+  } from "$lib/stores/store";
 
   const props = $props();
 
@@ -200,11 +205,19 @@
     {width}
     {height}
     onwheel={onWheel}
-    class={["panorama-canvas w-full h-[100dvh]", props.class]}
+    class={[
+      "panorama-canvas w-full h-[100dvh] transition-all",
+      !$activeLineIndex && "blur-sm brightness-50",
+      props.class,
+    ]}
   ></canvas>
 </div>
 
 <style>
+  canvas {
+    transition: all;
+  }
+
   .panorama-container {
     animation: breathe 30s ease-in-out infinite;
   }

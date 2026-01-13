@@ -141,7 +141,7 @@
         {/if}
         {#if line.title}
           <h2
-            class="pb-1.5 px-1 text-slate-100 text-3xl outlined-text max-w-[calc(100vw-1rem)] mochiy-pop-p-one"
+            class="pb-1.5 px-1 text-slate-100 text-3xl outlined-text max-w-[calc(100vw-1rem)] mochiy-pop-p-one whitespace-pre-line"
           >
             {line.title}
           </h2>

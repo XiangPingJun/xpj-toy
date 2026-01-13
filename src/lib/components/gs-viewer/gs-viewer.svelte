@@ -127,7 +127,7 @@
   class={[
     "w-full h-[100dvh] transition-all",
     $mode === "Story" ? "pointer-events-none" : "cursor-grab",
-    !$activeLineIndex && "blur-sm brightness-50",
+    !$activeLineIndex && $mode === "Story" && "blur-sm brightness-60",
     props.class,
   ]}
 ></canvas>

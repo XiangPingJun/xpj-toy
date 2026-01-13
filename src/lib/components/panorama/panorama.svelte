@@ -207,7 +207,7 @@
     onwheel={onWheel}
     class={[
       "panorama-canvas w-full h-[100dvh] transition-all",
-      !$activeLineIndex && "blur-sm brightness-60",
+      !$activeLineIndex && $mode === "Story" && "blur-sm brightness-60",
       props.class,
     ]}
   ></canvas>

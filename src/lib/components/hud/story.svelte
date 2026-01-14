@@ -15,6 +15,10 @@
   let wheelLockTimeout: ReturnType<typeof setTimeout>;
 
   function handleKeydown(e: KeyboardEvent) {
+    if ($mode !== "Story") {
+      return;
+    }
+
     let nextIndex: number;
     switch (e.key) {
       case "ArrowRight":
@@ -35,7 +39,7 @@
   }
 
   function handleWheel(e: WheelEvent) {
-    if (isWheelLocked) {
+    if (isWheelLocked || $mode !== "Story") {
       return;
     }
 
@@ -135,7 +139,7 @@
       data-index={i}
       class="story-section px-2 transition-all"
     >
-      <div class="text-center pb-12">
+      <div class="text-center pb-12 max-w-3xl">
         {#if !i}
           {@render scrollHint()}
         {/if}

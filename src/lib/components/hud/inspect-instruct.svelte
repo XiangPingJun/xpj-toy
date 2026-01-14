@@ -13,7 +13,7 @@
     $mode !== "Inspect" && "opacity-0 pointer-events-none",
   ]}
 >
-  <div>
+  <div class="text-center">
     {#if $subjectUrl.endsWith(".sog")}
       {#if $isMobile}
         <span class="inline-flex items-center">

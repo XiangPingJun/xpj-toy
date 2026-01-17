@@ -5,7 +5,15 @@
   const DOT_GAP = 0.75; // rem
   const DOT_STEP = DOT_SIZE + DOT_GAP;
 
-  const trackOffset = $derived(-$activeLineIndex * DOT_STEP);
+  const trackOffset = $derived.by(() => {
+    if ($activeLineIndex < 4) {
+      return 0;
+    }
+    if ($activeLineIndex > $lines.length - 4) {
+      return (-$lines.length + 4) * DOT_STEP + 4.25;
+    }
+    return -$activeLineIndex * DOT_STEP + 4.25;
+  });
 
   function handleDotClick(index: number) {
     $activeLineIndex = index;
@@ -58,8 +66,8 @@
   .track {
     display: flex;
     gap: 0.75rem;
-    padding-left: 4.25rem;
-    padding-right: 4.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
 

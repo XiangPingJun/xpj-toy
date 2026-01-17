@@ -51,7 +51,7 @@
 </svelte:head>
 
 <div class="fixed left-1/2 -translate-x-1/2 top-2">
-  <div class={[isPortrait ? "w-screen" : "w-[80vw]"]}>
+  <div class={[$isPortrait ? "w-screen" : "w-[80vw]"]}>
     {#if mounted}
       <div
         class="flex justify-center items-center text-2xl mb-2 mochiy-pop-p-one"
